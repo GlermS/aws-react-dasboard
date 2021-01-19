@@ -22,11 +22,6 @@ ReactDOM.render(
                 <Login />
               </CookiesProvider>
             </Route>
-            <Route >
-              <CookiesProvider>
-                <Redirect to="/login"/>
-              </CookiesProvider>
-            </Route>
             <Route path="/createcall">
               <CookiesProvider>
                 <CreateCall />
