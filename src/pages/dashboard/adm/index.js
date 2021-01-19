@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import Calls from '../calls'
 
 class AdmDashboard extends React.Component{
