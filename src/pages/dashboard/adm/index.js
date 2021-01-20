@@ -1,5 +1,6 @@
 import React from 'react'
 import Calls from '../calls'
+import Users from '../users'
 
 class AdmDashboard extends React.Component{
     constructor(props){
@@ -11,9 +12,9 @@ class AdmDashboard extends React.Component{
 
     switchArea = ()=>{
         if(this.state.area ==='calls'){
-            return <Calls auth = "adm" update = {this.props.updateCalls} mycalls={this.props.mycalls} calls={this.props.calls}></Calls>
+            return <Calls auth = "adm" update = {this.props.updateCalls} mycalls={this.props.mycalls} calls={this.props.calls}/>
         }else{
-            return <p>Ha</p>
+            return <Users />
         }
 
     }
