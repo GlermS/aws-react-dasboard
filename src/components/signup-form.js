@@ -25,13 +25,22 @@ function SignUpForm (props){
         if(error.response.status===409){
           setMessage('Email já cadastrado')
         }
-      })  
+      })
+      
+      if(props.update){
+        props.update()
+      }
 
     }
+    var displayMessage = {display:'flex'}
+    console.log(message)
+    if(message===''||!message){
   
+      displayMessage = {display:'none'}
+    }
     return(
       <form className ='signup-form' >
-          <p>{message}</p>
+          <p style={displayMessage}>{message}</p>
           <label>
           <span>Nome:</span>
           <input type = 'text' name = "name" value = {name} onChange ={(e)=>{setName(e.target.value); }}></input>

@@ -1,0 +1,22 @@
+.dashboard-menu{
+    display:flex;
+}
+
+.users .signup-form{
+    align-self: center;
+    justify-self: center;
+}
+
+.menu-item button{
+    font-size:1rem;
+    border:none;
+    width:6rem;
+    height:2.5rem;
+    text-decoration: none;
+    outline:none;
+}
+
+.menu-item button.selected{
+    background-color:blue;
+    color:white;
+}

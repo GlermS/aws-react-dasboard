@@ -3,7 +3,7 @@ import React from 'react'
 import {CookiesProvider, withCookies} from 'react-cookie'
 import SignUpForm from '../../../components/signup-form';
 import UserCard from './user-card'
-
+import './style.css'
 
   
 class Users extends React.Component{
@@ -55,11 +55,11 @@ class Users extends React.Component{
     render(){
         return(
         <div className="users">
-            <div>
+            <div className='users-section'>
                 <h2>Cadastrar usuário</h2>
-                <SignUpForm></SignUpForm>
+                <SignUpForm update={this.listUsers}></SignUpForm>
             </div>
-            <div>
+            <div className='users-section'>
                 <h2>Usuários</h2>
                 <div className = "users-list">
                     {this.usersRender(this.state.users)}
