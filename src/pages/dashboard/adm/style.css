@@ -17,6 +17,11 @@
 }
 
 .menu-item button.selected{
-    background-color:blue;
-    color:white;
+    background-color:var(--color-primary);
+    color:var(--color-white);
 }
+.menu-item button.menu-button{
+    background-color:var(--color-light-grey);
+    color:var(--color-black);
+}
+

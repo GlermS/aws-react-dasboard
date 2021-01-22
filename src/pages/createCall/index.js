@@ -1,4 +1,5 @@
 import './style.css'
+import {Link} from 'react-router-dom'
 import React from 'react'
 import CreateCallForm from '../../components/create-call-form.js'
 import { CookiesProvider } from 'react-cookie';
@@ -29,7 +30,8 @@ class CreateCall extends React.Component{
         <p>
           Powered by: 
         </p>
-        <img src={logo} alt="Yubbe Logo" className="logo" />
+        <Link to='/'>
+        <img src={logo} alt="Yubbe Logo" className="logo" /></Link>
       </footer>
     </div>
   )}

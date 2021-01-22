@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import {withCookies} from 'react-cookie'
+import moment from 'moment'
+
 
 
 class CreateCallForm extends React.Component{
@@ -14,17 +16,14 @@ class CreateCallForm extends React.Component{
       }
     }
 
-    componentDidMount = async ()=>{
-      
-    }
-
     submitForm = async (event)=>{
+      
       event.preventDefault();
       const { cookies } = this.props;
       await axios({
-        url:process.env.REACT_APP_BACKEND_URI+'/api/calls',
+        url:process.env.REACT_APP_BACKEND_URI+'/api/adm/calls',
         method: 'post',
-        data: {date:this.state.date, theme:this.state.theme},
+        data: {date:moment(this.state.date).utcOffset(-3, true).format(), theme:this.state.theme},
         headers: {
         "Access-Control-Allow-Origin": "*",
         authToken: cookies.cookies.authToken

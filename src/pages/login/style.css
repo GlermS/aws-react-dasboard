@@ -1,6 +1,5 @@
 .main-login{
     display: flex;
-
     min-width: 90%;
     max-width: 800px;
     flex-direction: column;

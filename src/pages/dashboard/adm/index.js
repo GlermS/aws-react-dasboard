@@ -24,6 +24,8 @@ class AdmDashboard extends React.Component{
     selected = (area)=>{
         if(this.state.area===area){
             return 'selected'
+        }else{
+            return 'menu-button'
         }
         
     }

@@ -18,7 +18,7 @@ class MyCalls extends React.Component{
                 callsComp.push(
                     <div key={i} className = "call-card">
                         <div className = "card-content">
-                        <div>
+                        <div className = "card-description">
                             <p className = "call-theme">{call.theme}</p>
                             {moderator}
                             <p className = "call-occupation"><b>Ocupação:</b> {call.clients.length}</p>
@@ -40,7 +40,7 @@ class MyCalls extends React.Component{
                 callsComp.push(
                     <div key={"M"+i} className = "call-card" style={{borderColor:'red'}}>
                         <div className = "card-content">
-                        <div>
+                        <div className = "card-description">
                             <div className="moderator-signal-ball"></div>
                             <p className = "call-theme">Moderator{call.theme}</p>
                             
@@ -59,7 +59,7 @@ class MyCalls extends React.Component{
     render(){
         return(
         <div className="my-calls">
-            <h2>Minhas Calls</h2>
+            <h2 >Minhas Calls</h2>
             <div className = "calls-list">
                 {this.myCallsRender(this.props.calls)}
             </div>
