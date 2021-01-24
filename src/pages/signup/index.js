@@ -2,8 +2,7 @@ import './style.css'
 import React from 'react'
 import SignUpForm from '../../components/signup-form.js'
 import { CookiesProvider } from 'react-cookie';
-import logo from "../../assets/logo.svg"
-import {Link} from "react-router-dom"
+import Footer from '../../components/footer';
 
 
 
@@ -26,14 +25,7 @@ class Signup extends React.Component{
         </CookiesProvider>
       </main>
 
-      <footer className="footer">
-        <p>
-          Powered by: 
-        </p>
-        <Link to="/">
-        <img src={logo} alt="Yubbe Logo" className="logo" />
-        </Link>
-      </footer>
+      <Footer />
     </div>
   )}
   

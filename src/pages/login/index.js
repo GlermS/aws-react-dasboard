@@ -1,8 +1,8 @@
 import './style.css'
 import LoginForm from '../../components/login-form.js'
+import Footer from '../../components/footer';
+
 import React from 'react'
-import {Link} from 'react-router-dom'
-import logo from "../../assets/logo.svg"
 
 
 class Login extends React.Component{
@@ -13,15 +13,7 @@ class Login extends React.Component{
         <LoginForm styleclass="loginform"/>
       </main>
 
-      <footer className="footer">
-        <p>
-          Powered by: 
-        </p>
-        <Link to="/">
-        <img src={logo} alt="Yubbe Logo" className="logo" />
-        </Link>
-        
-      </footer>
+      <Footer />
     </div>
   )}
   

@@ -2,8 +2,6 @@ import React from 'react'
 import EditionIcon from '../../../assets/icons/pencil.svg'
 import moment from 'moment'
 
-const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
-
 class CallCard extends React.Component{
     
 

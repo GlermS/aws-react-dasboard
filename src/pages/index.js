@@ -2,9 +2,10 @@ import './style.css'
 import { withCookies} from 'react-cookie';
 import {verifySession} from '../components/session-verifier'
 import Dashboard from './dashboard'
+import Footer from '../components/footer';
+
 import {Redirect} from 'react-router-dom'
 import React from 'react'
-import logo from "../assets/logo.svg"
 
 
 class Home extends React.Component{
@@ -84,12 +85,7 @@ class Home extends React.Component{
         <Dashboard auth = {this.state.auth} username ={this.state.name}/>
       </main>
 
-      <footer className="footer">
-        <p>
-          Powered by: 
-        </p>
-        <img src={logo} alt="Yubbe Logo" className="logo" />
-      </footer>
+      <Footer />
     </div>
   )
   }
