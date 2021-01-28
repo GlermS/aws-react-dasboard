@@ -2,7 +2,7 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import {withCookies} from 'react-cookie'
-import {verifySession} from './session-verifier'
+import {verifySession} from '../../components/session-verifier'
 
 
 class LoginForm extends React.Component{
@@ -16,12 +16,18 @@ class LoginForm extends React.Component{
       }
     }
 
+    loading =(isLoading)=>{
+      if (this.props.loading){
+       this.props.loading(isLoading)
+      }
+    }
+
     componentDidMount = async ()=>{
       const { cookies } = this.props.cookies;
       const respo = await verifySession(cookies)
-      console.log(respo.data)
+
       if (respo.data){
-        if(respo.data.approved){
+        if(respo.approved){
           this.setState({session:true})
         }else{
           if(this.state.session){
@@ -37,6 +43,7 @@ class LoginForm extends React.Component{
 
     submitForm = async (event)=>{
       event.preventDefault();
+      this.loading(true)
       await axios({
         url:process.env.REACT_APP_BACKEND_URI+'/api/login',
         method: 'post',
@@ -45,16 +52,15 @@ class LoginForm extends React.Component{
         "Access-Control-Allow-Origin": "*"
       }
       }).then((response) => {
-        
         this.props.cookies.set("authToken", String(response.data.authToken),{path:'/'});
-        if(response.data.approved){
+        if(response.status===200){
           this.setState({session:true, invalidData:false})
         }else{
           this.setState({session:false, invalidData:true})
        }
-
       }).catch((error) => {this.setState({invalidData:true})})  
 
+      this.loading(false)
     }
     redirect = ()=>{
       //console.log(session)

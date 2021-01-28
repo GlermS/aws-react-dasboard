@@ -2,6 +2,12 @@ import {useState} from 'react'
 import axios from 'axios'
 
 function SignUpForm (props){
+    const loading =(isLoading)=>{
+      if (props.loading){
+        props.loading(isLoading)
+      }
+    }
+
     const [ email, setEmail] = useState()
     const [name, setName] = useState()
     const [password, setPassword] = useState()
@@ -9,8 +15,8 @@ function SignUpForm (props){
 
     const submitForm = async (event)=>{
       event.preventDefault();
+      loading(true)
       
-      //const resp = 
       await axios({
         url:process.env.REACT_APP_BACKEND_URI+'/api/signup',
         method: 'post',
@@ -26,18 +32,18 @@ function SignUpForm (props){
           setMessage('Email já cadastrado')
         }
       })
-      
       if(props.update){
         props.update()
       }
-
+      
+      loading(false)
     }
+
     var displayMessage = {display:'flex'}
-    console.log(message)
     if(message===''||!message){
-  
       displayMessage = {display:'none'}
     }
+
     return(
       <form className ='signup-form' >
           <p style={displayMessage}>{message}</p>

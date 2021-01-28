@@ -1,0 +1,10 @@
+.my-calls{
+    margin: 1.5rem;
+}
+.my-calls h2{
+    margin:1rem 10px;
+}
+.mycall-moderator{
+    box-sizing: border-box;
+    border: 0.5rem solid var(--color-normal-text);
+}

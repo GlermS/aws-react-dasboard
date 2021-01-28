@@ -84,7 +84,7 @@ class UserCard extends React.Component{
 
     render(){
         return (
-        <div className = "user-card">
+        <div key={this.props.keys} className = "user-card">
             <div className = "user-card-content">
                 <form>
                   <div className="inputs">

@@ -12,6 +12,12 @@ class EditCall extends React.Component{
           }
       }
 
+    loading =(isLoading)=>{
+      if (this.props.loading){
+        this.props.loading(isLoading)
+      }
+    }
+
   componentDidMount = ()=>{
     if(!this.state.data.moderator){
       this.setState({data:{moderator:['']}})
@@ -22,15 +28,17 @@ class EditCall extends React.Component{
       this.setState({data : this.props.call})
     }
   }
+
   refresh =async ()=>{
     const call = await this.props.update({id:this.state.data._id})
-    console.log(call)
     this.setState({data:call})
+    this.loading(false)
   }
 
   updateCall = async ()=>{
-    console.log("Update")
     const { cookies } = this.props;
+    this.loading(true)
+
     var data = Object.assign({},this.state.data)
     data.date = moment(data.date).utcOffset(-3, true).format()
     data.clients = data.clients.map((user,i)=>{
@@ -44,7 +52,6 @@ class EditCall extends React.Component{
     }else{
       data.moderator = ''
     }
-    console.log(data)
     await axios({
       url:process.env.REACT_APP_BACKEND_URI+'/api/adm/call',
       method: 'put',
@@ -65,8 +72,10 @@ class EditCall extends React.Component{
 
   removeUser = async (e)=>{
     e.preventDefault();
+    this.loading(true)
     const { cookies } = this.props;
     const email=e.target.value
+
     await axios({
       url:process.env.REACT_APP_BACKEND_URI+'/api/adm/call/client',
       method: 'delete',
@@ -116,6 +125,7 @@ class EditCall extends React.Component{
 
     deleteCall =async (e)=>{
         e.preventDefault();
+        this.loading(true)
         const { cookies } = this.props;
         await axios({
           url:process.env.REACT_APP_BACKEND_URI+'/api/adm/call',
@@ -133,12 +143,11 @@ class EditCall extends React.Component{
         })
 
         await this.refresh()
+        this.loading(false)
     }
 
     submitChanges =async(e)=>{
-      
         e.preventDefault();
-        console.log(this.state.data)
         await this.updateCall()
     }
 
@@ -160,9 +169,7 @@ class EditCall extends React.Component{
 
 
     render(){
-     // console.log(this.state.data)
       if(this.state.data){
-        
         const date = moment(this.state.data.date).format("YYYY-MM-DDThh:mm:ss")
         
         return (

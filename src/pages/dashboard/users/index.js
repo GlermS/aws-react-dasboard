@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import {CookiesProvider, withCookies} from 'react-cookie'
-import SignUpForm from '../../../components/signup-form';
+import SignUpForm from '../../../components/signup/signup-form';
 import UserCard from './user-card'
 import './style.css'
 
@@ -14,7 +14,15 @@ class Users extends React.Component{
         }
     }
 
+    loading =(isLoading)=>{
+        if (this.props.loading){
+         this.props.loading(isLoading)
+        }
+    }
+
     listUsers = async ()=>{
+      this.loading(true)
+
       const { cookies } = this.props;
       await axios({
         url:process.env.REACT_APP_BACKEND_URI+'/api/adm/users',
@@ -25,10 +33,10 @@ class Users extends React.Component{
       }
       }).then((response) => {
         this.setState({users: response.data})
-        
       }).catch((error) => {
-        console.log(error)
-      })  
+        alert(error.toString())
+      })
+      this.loading(false)  
     }
 
     componentDidMount = ()=>{
@@ -39,15 +47,12 @@ class Users extends React.Component{
         var usersComp = []
         if(users){
             users.forEach((user,i)=>{
-                
                 usersComp.push(
-                    <CookiesProvider>
-                        <UserCard name={user.name} id={user._id} email = {user.email} auth ={user.authorization} update={this.listUsers}/>
+                    <CookiesProvider key={i.toString()}>
+                        <UserCard  i={i.toString()} name={user.name} id={user._id} email = {user.email} auth ={user.authorization} update={this.listUsers}/>
                     </CookiesProvider>
-                    
                 )
             })
-        
         }
         return usersComp;
     }

@@ -1,12 +1,13 @@
 import './style.css'
 import { withCookies} from 'react-cookie';
 import {verifySession} from '../components/session-verifier'
+import LoadingScreen from '../components/loadingScreen'
 import Dashboard from './dashboard'
 import Footer from '../components/footer';
-
 import {Redirect} from 'react-router-dom'
 import React from 'react'
-
+import SideMenu from '../components/sideMenu';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 class Home extends React.Component{
   constructor(props){
@@ -22,27 +23,25 @@ class Home extends React.Component{
     this.state = {
       session: session,
       name: cookies.get('name') ||'',
-      auth: 'client'
+      auth: 'client',
+      isLoading: false,
+      area:''
     }
   }
   
   logoutFunc = async ()=>{
     
     const { cookies } = this.props;
-    //console.log(cookies.get('authToken'))
+
     cookies.set('authToken','',{path:'/'})
     this.setState({session:false})
-
-    //router.replace('/login')
   }
 
   componentDidMount = async()=>{
     const { cookies } = this.props;
 
     const respo = await verifySession(cookies.cookies);
-    console.log(respo)
-    if(respo.data){
-    if(respo.data.approved){
+    if(respo.approved){
       if(!this.state.session){
         this.setState({session: true})
       }
@@ -51,7 +50,6 @@ class Home extends React.Component{
         this.setState({name:respo.data.name})
       }
       if(respo.data.authorization){
-        console.log('Updating')
         this.setState({auth:respo.data.authorization})
       }
     }else{
@@ -59,12 +57,8 @@ class Home extends React.Component{
         this.setState({session: false})
       }
     }
-  }else{
-    if(this.state.session){
-      this.setState({session: false})
-    }
   }
-}
+
 
   redirect = ()=>{
     if(this.state.session){
@@ -74,18 +68,50 @@ class Home extends React.Component{
     }
   }
 
+  loading = (isLoading)=>{
+    this.setState({isLoading})
+  }
+
+  displayLoading = ()=>{
+    if(this.state.isLoading){
+      return 'flex'
+    }else{
+      return 'none'
+    }
+  }
+  updateArea =(area)=>{
+    
+    this.setState({area})
+  }
+  options = {
+    'client':[
+      {path:'/mycalls', text:'Minhas Calls'},
+      {path:'/available-calls', text:'Calls Disponíveis'}
+  ],
+    'moderator':[
+      {path:'/mycalls', text:'Minhas Calls'},
+      {path:'/available-calls', text:'Calls Disponíveis'}
+  ],
+    'adm':[
+      {path:'/mycalls', text:'Minhas Calls'},
+      {path:'/available-calls', text:'Calls Disponíveis'}
+  ],
+  }
+
   render(){
-    console.log(this.state)
   return (
     
-    <div className="container">
+    <div className="container" id="home">
       {this.redirect()}
-      <main className="main">
-        <header className="header"><h1>Welcome, {this.state.name}!</h1>  <button onClick={this.logoutFunc} className="logoutbutton">Logout</button></header>
-        <Dashboard auth = {this.state.auth} username ={this.state.name}/>
-      </main>
+     
+      <SideMenu update={this.updateArea} username={this.state.name} options ={this.options[this.state.auth]} logout={this.logoutFunc}></SideMenu>
 
+      <div className='content'>
+          <Dashboard area={this.state.area} auth = {this.state.auth} username ={this.state.name} loading={this.loading}/>
+      </div>
+       
       <Footer />
+      <LoadingScreen display={this.displayLoading()}/>
     </div>
   )
   }

@@ -8,7 +8,7 @@ export async function verifySession(cookies){
       method: 'get',
       headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
     }).then((response) => {
-      return response
+      return {approved:response.status===200, data:response.data}
       }
     ).catch((error) =>{return {message: error.toString()}})
 

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../../../styles/Login.module.css'
-import SignUpForm from '../signup-form'
+import SignUpForm from './signup-form'
 
 
 

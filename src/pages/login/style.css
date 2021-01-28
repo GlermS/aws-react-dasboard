@@ -1,3 +1,7 @@
+#login-page{
+    height: 100vh;
+}
+
 .main-login{
     display: flex;
     min-width: 90%;
@@ -6,7 +10,6 @@
     justify-content: center;
     align-items: center;
 }
-
 
 .login-form{
     width:200px;
@@ -18,3 +21,6 @@
     flex-direction: column;
 }
 
+#login-page footer{
+    height: 3rem;
+}

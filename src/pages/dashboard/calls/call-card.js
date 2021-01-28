@@ -1,6 +1,7 @@
 import React from 'react'
 import EditionIcon from '../../../assets/icons/pencil.svg'
 import moment from 'moment'
+import './styles.css'
 
 class CallCard extends React.Component{
     
@@ -41,13 +42,18 @@ class CallCard extends React.Component{
             moderator = <p className = "call-occupation"><b>Moderador:</b> {this.props.call.moderator[0].name}</p>
         }
         const date = moment(this.props.call.date)
-        //console.log(date)
+        
+        var title = '';
+        if(this.props.call.theme[0]){
+            title = this.props.call.theme[0].title
+        }
+        
         return(
-            <div key={this.props.key} className = "call-card">
+            <div key={this.props.keys} className = "call-card">
                 <div className = "card-content">
                 <div className='card-header'><button className="edit-button" onClick={this.editCall}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></button></div>
                 <div className="card-description">
-                    <p className = "call-theme">{this.props.call.theme}</p>
+                    <p className = "call-theme">{title}</p>
                     {moderator}
                     <p className = "call-occupation"><b>Ocupação:</b> {this.props.call.clients.length}</p>
                     <p className = "call-date">Data: {date.format("DD/MM/YYYY")} às {date.hours()}h</p>

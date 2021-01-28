@@ -1,8 +1,9 @@
 import React from 'react'
-import { withCookies} from 'react-cookie';
+import { withCookies, CookiesProvider} from 'react-cookie';
 import axios from 'axios'
-import AdmDashboard from './adm';
-import Calls from './calls';
+import CallsList from './calls/calls-list';
+import {BrowserRouter as Router, Switch, Route,withRouter} from 'react-router-dom'
+import MyCalls from './calls/my-calls';
 
 
 class Dashboard extends React.Component{
@@ -15,9 +16,15 @@ class Dashboard extends React.Component{
         }
     }
 
-    
+    loading = (isLoading)=>{
+        if(this.props.loading){
+            this.props.loading(isLoading);
+        }
+    }
 
     listUserCalls = async (cookies)=>{
+        this.loading(true)
+        
         const resp = await axios({
             url:process.env.REACT_APP_BACKEND_URI+'/api/calls/mycalls',
             method: 'get',
@@ -35,26 +42,29 @@ class Dashboard extends React.Component{
         if(resp.data){
             this.setState({myCalls:resp.data})
         }
+
+        this.loading(false)
     }
 
     listCalls = async (cookies)=>{
+        this.loading(true)
 
         const resp = await axios({
           url:process.env.REACT_APP_BACKEND_URI+'/api/calls',
           method: 'get',
           headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
           }).then((response) => {
-            //console.log(response);
-            
             return {data: response.data, status: response.status}
       
         }).catch(error =>{
           return {msg:error, status:401}
         })
-        //console.log(resp)
         if(resp.data){
+            // console.log(resp.data)
             this.setState({calls:resp.data})
         }
+
+        this.loading(this.loading(true))
       }
     
     updateData =async ()=>{
@@ -66,24 +76,32 @@ class Dashboard extends React.Component{
         this.updateData()
     }
 
-    switchView = ()=>{
-        
-        if(this.props.auth==='adm'){
-            return(
-                <AdmDashboard updateCalls = {this.updateData} mycalls={this.state.myCalls} calls={this.state.calls}/>
-            )
-        }else{
-            return (
-                <Calls auth = {this.props.auth} update = {this.updateData} mycalls={this.state.myCalls} calls={this.state.calls}></Calls>
-            )
-            
-        }
-    }
-
-
     render() {
-        return this.switchView()
+    
+        return (
+         <Switch>
+                <Route path="/mycalls">
+                <CookiesProvider>
+                    <MyCalls auth ={this.props.auth} update = {this.props.update} calls={this.state.myCalls} loading={this.loading}/>
+                </CookiesProvider>
+                </Route>
+
+                <Route path="/available-calls">
+                <CookiesProvider>
+                    <CallsList auth ={this.props.auth} update = {this.props.update} calls={this.state.calls} update={this.loading}/>
+                </CookiesProvider>
+                </Route>
+
+                <Route path="/register-user">
+                
+                </Route>
+
+                <Route path="/list-user">
+                
+                </Route>
+                
+         </Switch>)
     }
 }
 
-export default withCookies(Dashboard)
+export default withRouter(withCookies(Dashboard))
