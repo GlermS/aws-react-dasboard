@@ -7,7 +7,6 @@ import Footer from '../components/footer';
 import {Redirect} from 'react-router-dom'
 import React from 'react'
 import SideMenu from '../components/sideMenu';
-import { textChangeRangeIsUnchanged } from 'typescript';
 
 class Home extends React.Component{
   constructor(props){

@@ -2,7 +2,7 @@ import React from 'react'
 import { withCookies, CookiesProvider} from 'react-cookie';
 import axios from 'axios'
 import CallsList from './calls/calls-list';
-import {BrowserRouter as Router, Switch, Route,withRouter} from 'react-router-dom'
+import {Switch, Route,withRouter} from 'react-router-dom'
 import MyCalls from './calls/my-calls';
 
 
@@ -88,7 +88,7 @@ class Dashboard extends React.Component{
 
                 <Route path="/available-calls">
                 <CookiesProvider>
-                    <CallsList auth ={this.props.auth} update = {this.props.update} calls={this.state.calls} update={this.loading}/>
+                    <CallsList auth ={this.props.auth} calls={this.state.calls} update={this.loading}/>
                 </CookiesProvider>
                 </Route>
 
