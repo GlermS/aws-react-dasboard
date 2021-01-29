@@ -1,5 +1,5 @@
 import React from 'react'
-import EditionIcon from '../../../assets/icons/pencil.svg'
+import EditionIcon from '../../../../assets/icons/pencil.svg'
 import moment from 'moment'
 import './styles.css'
 
@@ -39,7 +39,7 @@ class CallCard extends React.Component{
     render() {
         var moderator = []
         if(this.props.call.moderator[0]){
-            moderator = <p className = "call-occupation"><b>Moderador:</b> {this.props.call.moderator[0].name}</p>
+            moderator = <p className = "call-occupation"><b>Moderador:</b><span className="card-content-text">{this.props.call.moderator[0].name}</span></p>
         }
         const date = moment(this.props.call.date)
         
@@ -51,12 +51,12 @@ class CallCard extends React.Component{
         return(
             <div key={this.props.keys} className = "call-card">
                 <div className = "card-content">
-                <div className='card-header'><button className="edit-button" onClick={this.editCall}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></button></div>
+                <button className="edit-button" onClick={this.editCall}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></button>
                 <div className="card-description">
                     <p className = "call-theme">{title}</p>
                     {moderator}
-                    <p className = "call-occupation"><b>Ocupação:</b> {this.props.call.clients.length}</p>
-                    <p className = "call-date">Data: {date.format("DD/MM/YYYY")} às {date.hours()}h</p>
+                    <p className = "call-occupation"><b>Ocupação:</b><span className="card-content-text">{this.props.call.clients.length}</span></p>
+                    <p className = "call-date"><b>Data:</b><span className="card-content-text">{date.format("DD/MM/YYYY")} às {date.hours()}</span></p>
                 </div>
                 <div className="card-buttons">
                     <button className= "moderate" id={this.props.call._id} onClick= {this.props.moderate} style ={this.admOrModeratorDisplay()}>Moderate</button>

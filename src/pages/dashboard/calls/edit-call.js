@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import {withCookies} from 'react-cookie'
-import styles from './Style.css.js'
 import moment from 'moment-timezone'
 
 class EditCall extends React.Component{
@@ -173,9 +172,9 @@ class EditCall extends React.Component{
         const date = moment(this.state.data.date).format("YYYY-MM-DDThh:mm:ss")
         
         return (
-        <div className = "edit-call-card" style={styles.card}>
-            <div className = "edit-call-card-content" style={styles.card}>
-                <form style={styles.card}>
+        <div className = "edit-call-card">
+            <div className = "edit-call-card-content">
+                <form >
                   <div className="inputs">
                     <label>
                     <span>Tema</span>
@@ -193,8 +192,8 @@ class EditCall extends React.Component{
                     {this.renderUser(this.state.data.moderator, 'moderator')}
                     </div>
                     <div className='buttons'>
-                      <button type="submit" className ='submit-changes' style={styles.button} onClick = {this.submitChanges}>Enviar mudança</button>
-                      <button className="delete-user" style={styles.button} onClick = {this.deleteCall}> Excluir Call</button>
+                      <button type="submit" className ='submit-changes'  onClick = {this.submitChanges}>Enviar mudança</button>
+                      <button className="delete-user" onClick = {this.deleteCall}> Excluir Call</button>
                     </div>
                 </form>
             </div>

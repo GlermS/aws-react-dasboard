@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import EditCall from '../edit-call'
-import CallCard from '../call-card'
+import CallCard from './call-card'
 import {withCookies} from 'react-cookie'
 import './styles.css'
 

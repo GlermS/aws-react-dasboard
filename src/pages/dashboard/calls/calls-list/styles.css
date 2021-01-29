@@ -3,3 +3,66 @@
     display: flex;
     flex-direction: column;
 }
+
+.calls-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.call-card{
+    margin:9px;
+    width:220px;
+    min-height:180px;
+    border-radius: 6px;;
+    box-shadow:0.1rem 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.2)
+}
+
+.card-content{
+    position: relative;
+    padding:10px;
+    min-height:calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-description{
+    margin-bottom:1rem;
+}
+
+.card-description p{
+    margin:0.2rem 0;
+    display:flex;
+    justify-content: space-between;
+}
+
+.card-content-text{
+    font-size:0.8rem;
+}
+.card-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-buttons button{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 6px;
+}
+
+.edit-button{
+    position: absolute;
+    right:0.2rem;
+    width:2rem;
+    background-color:transparent;
+    fill:black;
+}
+
+.call-theme{
+    min-height: 1rem;
+    max-width: calc(100% - 2rem);
+}
