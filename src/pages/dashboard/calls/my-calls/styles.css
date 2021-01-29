@@ -1,6 +1,14 @@
 .my-calls{
-    margin: 1.5rem;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+
 }
+
+.my-calls-content{
+    width:420px;
+}
+
 .my-calls h2{
     margin:1rem 10px;
 }

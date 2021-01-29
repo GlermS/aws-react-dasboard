@@ -27,6 +27,17 @@ class Home extends React.Component{
       area:''
     }
   }
+  loading = (isLoading)=>{
+    this.setState({isLoading})
+  }
+
+displayLoading = ()=>{
+if(this.state.isLoading){
+    return 'flex'
+}else{
+    return 'none'
+}
+}
   
   logoutFunc = async ()=>{
     
@@ -67,17 +78,6 @@ class Home extends React.Component{
     }
   }
 
-  loading = (isLoading)=>{
-    this.setState({isLoading})
-  }
-
-  displayLoading = ()=>{
-    if(this.state.isLoading){
-      return 'flex'
-    }else{
-      return 'none'
-    }
-  }
   updateArea =(area)=>{
     
     this.setState({area})
@@ -93,7 +93,12 @@ class Home extends React.Component{
   ],
     'adm':[
       {path:'/mycalls', text:'Minhas Calls'},
-      {path:'/available-calls', text:'Calls Disponíveis'}
+      {path:'/available-calls', text:'Calls Disponíveis'},
+      {path:'/create-call', text:'Criar Call'},
+      {path:'/register-user', text:'Cadastrar Usuário'},
+      {path:'/users-list', text:'Lista de Usuários'},
+      {path:'/create-theme', text:'Criar Tema'},
+      {path:'/list-themes', text:'Lista de Temas'},      
   ],
   }
 

@@ -1,0 +1,17 @@
+.create-call{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.create-call-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.create-call-form label{
+    display: flex;
+    flex-direction: column;
+}

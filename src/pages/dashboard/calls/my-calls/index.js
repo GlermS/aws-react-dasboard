@@ -2,8 +2,50 @@ import React from 'react'
 import {withCookies} from 'react-cookie'
 import './styles.css'
 import moment from 'moment';
+import axios from 'axios';
+
   
 class MyCalls extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            callsList:[],
+        }
+    }
+    loading = (isLoading)=>{
+        if(this.props.loading){
+            this.props.loading(isLoading);
+        }
+    }
+    
+    listUserCalls = async ()=>{
+        this.loading(true)
+        const {cookies} = this.props.cookies
+        const resp = await axios({
+            url:process.env.REACT_APP_BACKEND_URI+'/api/calls/mycalls',
+            method: 'get',
+            headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
+            }).then((response) => {
+            //console.log(response);
+            
+            return {data: response.data, status: response.status}
+        
+        }).catch(error =>{
+            return {msg:error, status:401}
+        })
+        //console.log(resp)
+    
+        if(resp.data){
+            this.setState({callsList:resp.data})
+        }
+        this.loading(false)
+
+    }
+
+    componentDidMount= async() =>{
+        await this.listUserCalls()
+    }
+
     myCallsRender = (calls)=>{
         var callsComp = []
         if(calls.client){
@@ -61,11 +103,14 @@ class MyCalls extends React.Component{
     render(){
         // console.log(this.props.calls)
         return(
-        <div className="my-calls">
-            <h2 >Minhas Calls</h2>
-            <div className = "calls-list">
-                {this.myCallsRender(this.props.calls)}
+        <div className="my-calls scroll">
+            <div className="my-calls-content">
+               <h2 >Minhas Calls</h2>
+                <div className = "calls-list">
+                    {this.myCallsRender(this.state.callsList)}
+                </div> 
             </div>
+            {this.props.loadingscreen}
         </div>
         );
     }

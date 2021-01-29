@@ -2,6 +2,7 @@ import React from 'react'
 import EditionIcon from '../../../../assets/icons/pencil.svg'
 import moment from 'moment'
 import './styles.css'
+import {Link} from 'react-router-dom'
 
 class CallCard extends React.Component{
     
@@ -30,12 +31,6 @@ class CallCard extends React.Component{
         }
     }
 
-    editCall = ()=>{
-        //console.log(this.props.call._id)
-        this.props.choose({id:this.props.call._id})
-        
-    }
-
     render() {
         var moderator = []
         if(this.props.call.moderator[0]){
@@ -51,7 +46,7 @@ class CallCard extends React.Component{
         return(
             <div key={this.props.keys} className = "call-card">
                 <div className = "card-content">
-                <button className="edit-button" onClick={this.editCall}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></button>
+                <Link className="edit-button" to={"/available-calls/"+this.props.call._id}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></Link>
                 <div className="card-description">
                     <p className = "call-theme">{title}</p>
                     {moderator}

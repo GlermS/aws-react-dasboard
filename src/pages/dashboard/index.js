@@ -1,9 +1,11 @@
 import React from 'react'
 import { withCookies, CookiesProvider} from 'react-cookie';
-import axios from 'axios'
 import CallsList from './calls/calls-list';
 import {Switch, Route,withRouter} from 'react-router-dom'
 import MyCalls from './calls/my-calls';
+import Users from './users';
+import CreateCall from './calls/createCall';
+import RegisterUser from './users/register-user';
 
 
 class Dashboard extends React.Component{
@@ -11,8 +13,6 @@ class Dashboard extends React.Component{
         super(props);
         this.state = {
             update:0,
-            myCalls:[],
-            calls:[]
         }
     }
 
@@ -22,82 +22,34 @@ class Dashboard extends React.Component{
         }
     }
 
-    listUserCalls = async (cookies)=>{
-        this.loading(true)
-        
-        const resp = await axios({
-            url:process.env.REACT_APP_BACKEND_URI+'/api/calls/mycalls',
-            method: 'get',
-            headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
-            }).then((response) => {
-            //console.log(response);
-            
-            return {data: response.data, status: response.status}
-        
-        }).catch(error =>{
-            return {msg:error, status:401}
-        })
-        //console.log(resp)
-    
-        if(resp.data){
-            this.setState({myCalls:resp.data})
-        }
-
-        this.loading(false)
-    }
-
-    listCalls = async (cookies)=>{
-        this.loading(true)
-
-        const resp = await axios({
-          url:process.env.REACT_APP_BACKEND_URI+'/api/calls',
-          method: 'get',
-          headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
-          }).then((response) => {
-            return {data: response.data, status: response.status}
-      
-        }).catch(error =>{
-          return {msg:error, status:401}
-        })
-        if(resp.data){
-            // console.log(resp.data)
-            this.setState({calls:resp.data})
-        }
-
-        this.loading(this.loading(true))
-      }
-    
-    updateData =async ()=>{
-        await this.listUserCalls(this.props.cookies.cookies);
-        await this.listCalls(this.props.cookies.cookies);
-
-    }
-    componentDidMount =async ()=>{
-        this.updateData()
-    }
-
-    render() {
+        render() {
     
         return (
          <Switch>
                 <Route path="/mycalls">
                 <CookiesProvider>
-                    <MyCalls auth ={this.props.auth} update = {this.props.update} calls={this.state.myCalls} loading={this.loading}/>
+                    <MyCalls auth ={this.props.auth} update = {this.props.update} loading={this.loading} />
                 </CookiesProvider>
                 </Route>
 
                 <Route path="/available-calls">
                 <CookiesProvider>
-                    <CallsList auth ={this.props.auth} calls={this.state.calls} update={this.loading}/>
+                    <CallsList auth ={this.props.auth} update={this.loading} loading={this.loading}/>
+                </CookiesProvider>
+                </Route>
+
+                <Route path="/create-call">
+                <CookiesProvider>
+                    <CreateCall loading={this.loading}/>
                 </CookiesProvider>
                 </Route>
 
                 <Route path="/register-user">
-                
+                 <RegisterUser loading={this.loading}/>                
                 </Route>
 
-                <Route path="/list-user">
-                
+                <Route path="/users-list">
+                    <Users loading={this.loading}></Users>
                 </Route>
                 
          </Switch>)

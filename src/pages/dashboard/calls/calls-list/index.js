@@ -1,9 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import EditCall from '../edit-call'
 import CallCard from './call-card'
 import {withCookies} from 'react-cookie'
 import './styles.css'
+import {Switch, Route} from 'react-router-dom'
+import EditCall from '../edit-call'
 
   
 class CallsList extends React.Component{
@@ -11,42 +12,42 @@ class CallsList extends React.Component{
         super(props);
 
         this.state = {
-            callData:{},
+            callsList:[],
         }
     }
 
-    loading =(isLoading)=>{
-        if (this.props.loading){
-         this.props.loading(isLoading)
+    loading = (isLoading)=>{
+        if(this.props.loading){
+            this.props.loading(isLoading);
         }
     }
 
-    getCallInfo = async (id)=>{
-        const { cookies } = this.props;
+    listCalls = async ()=>{
+        const {cookies} = this.props.cookies
         this.loading(true)
-
-        await axios({
-          url:process.env.REACT_APP_BACKEND_URI+'/api/adm/call',
+        const resp = await axios({
+          url:process.env.REACT_APP_BACKEND_URI+'/api/calls',
           method: 'get',
-          params:{
-            id
-          },
-          headers: {
-          "Access-Control-Allow-Origin": "*",
-          authToken: cookies.cookies.authToken
-        }
-        }).then((response) => {
-          this.setState({callData: response.data[0]})
-          
-        }).catch((error) => {
-          console.log(error)
+          headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
+          }).then((response) => {
+              console.log(response)
+            return {data: response.data, status: response.status}
+      
+        }).catch(error =>{
+          return {msg:error, status:401}
         })
+        if(resp.data){
+            this.setState({callsList:resp.data})
+        }
         this.loading(false)
       }
 
+    componentDidMount = async ()=>{
+        await this.listCalls()
+    }
+
     joinCall = async (event) =>{
         this.loading(true)
-        
         await axios({
             url:process.env.REACT_APP_BACKEND_URI+'/api/call/join',
             method: 'post',
@@ -66,12 +67,12 @@ class CallsList extends React.Component{
             return {msg:error}
           })
 
-        await this.props.update()
+        await this.listCalls();
         this.loading(false)
     }
+
     moderateCall = async (event) =>{
         this.loading(true)
-
         await axios({
             url:process.env.REACT_APP_BACKEND_URI+'/api/call/moderate',
             method: 'post',
@@ -80,26 +81,21 @@ class CallsList extends React.Component{
                 callId: event.target.id
             }
             }).then((response) => {
-              return {data: response.data, status: response.status}
+                alert(response.data)
+                return {data: response.data, status: response.status}
         
           }).catch(error =>{
             alert('Não autorizado')
             return {status: error.response.status, msg:error}
           })
-        
-        await this.props.update();
+          
+        await this.listCalls;
         this.loading(false)
-    }
-    refresh =async (props)=>{
-        await this.getCallInfo(props.id)
-        this.props.update()
-        return this.state.callData
     }
 
     availableCallsRender = (calls)=>{
         var callsComp = []
         if(calls){
-            console.log(calls)
             calls.forEach((call,i)=>{
                 callsComp.push(
                     <CallCard call={call} keys={i.toString()} key={i.toString()} auth={this.props.auth} choose={this.refresh} moderate={this.moderateCall} join={this.joinCall} loading={this.loading}/>
@@ -109,26 +105,26 @@ class CallsList extends React.Component{
         
         return callsComp
     }
-
-    displayEditCall =()=>{
-        if(this.state.callData){
-             if(this.props.auth==='adm' && this.state.callData._id){
-            return  (<div className ="edit-call">
-                        <h2>Editar chamada</h2>
-                        <EditCall call={this.state.callData} update={this.refresh} loading={this.loading}/>
-                    </div>)
-                }
-            }
-        return 
-    }
     
     render(){
         return(
-        <div className ="available-calls">
-            <h2>Calls disponíveis</h2>
-            <div className = "calls-list">
-                {this.availableCallsRender(this.props.calls)}
-            </div>
+        <div className ="available-calls scroll">
+            <Switch>
+                <Route path='/available-calls/:id'>
+                    <EditCall update={this.listCalls} loading={this.loading}></EditCall>
+                </Route>
+                <Route path='/available-calls'>
+                    <div className="calls-list-container">
+                        <h2>Calls disponíveis</h2>
+                        <div className = "calls-list">
+                            {this.availableCallsRender(this.state.callsList)}
+                        </div>
+                    </div>
+                   
+                </Route>
+
+            </Switch>
+            
         </div>
         );
     }

@@ -1,37 +1,51 @@
+
+.users{
+    display:flex;
+    width: 100%;
+    justify-content:center;
+    /* align-items:center; */
+}
 .users-section{
     display: flex;
     flex-direction: column;
+    width: 420px;
 }
 
 .user-card{
     display: flex;
     flex-direction: column;
     margin-bottom:1rem;
+    border-radius:0.2rem;
+    box-shadow:0.1rem 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.2)
+}
+.user-card-content{
+    margin:0.6rem;
 }
 
-.user-card form{
-    display: flex;
-}
+.user-card-form{
 
-form .inputs{
     display: flex;
     flex-direction: column;
-    width: 50%;
+}
+
+
+
+.user-card-form div.inputs{
+    display: flex;
+    flex-direction: column;
 }
 
 .inputs input{
-    max-width: 20rem;
     margin: 0.1rem;
 }
 
 .inputs select{
-    max-width: 20.5rem;
     margin: 0.1rem;
 }
 
-form .buttons{
+.user-card-form .buttons{
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
 }
 .buttons button{
     margin: 0.1rem;
@@ -43,10 +57,28 @@ form .buttons{
     margin-top: 0.3rem;
 }
 
-.change-password input{
-    max-width: 20rem;
-    
+.change-password div.inputs{
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
+
+.change-password div.inputs input{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 1.3rem;
+}
+
 .users-list button {
     width: 7rem;
+}
+
+.register-user{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
 }

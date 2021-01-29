@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react'
 import {CookiesProvider, withCookies} from 'react-cookie'
-import SignUpForm from '../../../components/signup/signup-form';
 import UserCard from './user-card'
 import './style.css'
 
@@ -13,16 +12,14 @@ class Users extends React.Component{
             users:[]
         }
     }
-
-    loading =(isLoading)=>{
-        if (this.props.loading){
-         this.props.loading(isLoading)
+    loading = (isLoading)=>{
+        if(this.props.loading){
+            this.props.loading(isLoading);
         }
     }
 
     listUsers = async ()=>{
-      this.loading(true)
-
+    this.loading(true)
       const { cookies } = this.props;
       await axios({
         url:process.env.REACT_APP_BACKEND_URI+'/api/adm/users',
@@ -36,7 +33,7 @@ class Users extends React.Component{
       }).catch((error) => {
         alert(error.toString())
       })
-      this.loading(false)  
+      this.loading(false)
     }
 
     componentDidMount = ()=>{
@@ -60,10 +57,6 @@ class Users extends React.Component{
     render(){
         return(
         <div className="users">
-            <div className='users-section'>
-                <h2>Cadastrar usuário</h2>
-                <SignUpForm update={this.listUsers}></SignUpForm>
-            </div>
             <div className='users-section'>
                 <h2>Usuários</h2>
                 <div className = "users-list">

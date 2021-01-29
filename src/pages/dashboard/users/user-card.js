@@ -22,7 +22,7 @@ class UserCard extends React.Component{
           data: {userData: {name: this.state.name,
             id: this.state.id,
             email: this.state.email,
-            authorization: this.state.auth,}},
+            authorization: this.state.authorization,}},
           headers: {
           "Access-Control-Allow-Origin": "*",
           authToken: cookies.cookies.authToken
@@ -55,7 +55,8 @@ class UserCard extends React.Component{
 
         }
 
-    changePassword =async ()=>{
+    changePassword =async (e)=>{
+      e.preventDefault()
         const { cookies } = this.props;
         await axios({
           url:process.env.REACT_APP_BACKEND_URI+'/api/adm/user/password',
@@ -76,9 +77,10 @@ class UserCard extends React.Component{
         }
     
 
-    submitChanges =async()=>{
-        await this.updateUser()
-        await this.props.update()
+    submitChanges =async(e)=>{
+      e.preventDefault()
+      await this.updateUser()
+      await this.props.update()
     }
 
 
@@ -86,11 +88,11 @@ class UserCard extends React.Component{
         return (
         <div key={this.props.keys} className = "user-card">
             <div className = "user-card-content">
-                <form>
+                <form className="user-card-form">
                   <div className="inputs">
                     <input type="text" className = "user-name" value={this.state.name} onChange={(e)=>{this.setState({name: e.target.value})}}/>
                     <input type="text" className = "user-email" value={this.state.email} onChange={(e)=>{this.setState({email: e.target.value})}}/>
-                    <select value={this.state.authorization} onChange={(e)=>{this.setState({authorization: e.target.value})}}>
+                    <select className="user-auth" value={this.state.authorization} onChange={(e)=>{this.setState({authorization: e.target.value})}}>
                         <option value="client">Cliente</option>
                         <option value = "moderator">Moderador</option>
                         <option value = 'adm'>Adm</option>
