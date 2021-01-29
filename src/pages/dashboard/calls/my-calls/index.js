@@ -2,8 +2,6 @@ import React from 'react'
 import {withCookies} from 'react-cookie'
 import './styles.css'
 import moment from 'moment';
-
-const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
   
 class MyCalls extends React.Component{
     myCallsRender = (calls)=>{
