@@ -7,22 +7,27 @@ import Footer from '../components/footer';
 import {Redirect} from 'react-router-dom'
 import React from 'react'
 import SideMenu from '../components/sideMenu';
+import Amplify, { Auth } from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import awsconfig from '../aws-exports';
+Amplify.configure(awsconfig);
 
 class Home extends React.Component{
   constructor(props){
     super(props)
-    const { cookies } = props;
-    var session = false
-    if(cookies.get('authToken')){
-      if(cookies.get('authToken')!==''){
-        session=true
-      }
-    }
+    // const { cookies } = props;
+    var session = true
+    // if(cookies.get('authToken')){
+    //   if(cookies.get('authToken')!==''){
+    //     session=true
+    //   }
+    // }
 
     this.state = {
       session: session,
-      name: cookies.get('name') ||'',
-      auth: 'client',
+      // name: cookies.get('name') ||'',
+      name:'',
+      auth: 'adm',
       isLoading: false,
       area:''
     }
@@ -39,34 +44,34 @@ if(this.state.isLoading){
 }
 }
   
-  logoutFunc = async ()=>{
+  // logoutFunc = async ()=>{
     
-    const { cookies } = this.props;
+  //   const { cookies } = this.props;
 
-    cookies.set('authToken','',{path:'/'})
-    this.setState({session:false})
-  }
+  //   cookies.set('authToken','',{path:'/'})
+  //   this.setState({session:false})
+  // }
 
   componentDidMount = async()=>{
-    const { cookies } = this.props;
+    // const { cookies } = this.props;
 
-    const respo = await verifySession(cookies.cookies);
-    if(respo.approved){
-      if(!this.state.session){
-        this.setState({session: true})
-      }
-      //cookies.set('authToken','',{path:'/'})
-      if(respo.data.name){
-        this.setState({name:respo.data.name})
-      }
-      if(respo.data.authorization){
-        this.setState({auth:respo.data.authorization})
-      }
-    }else{
-      if(this.state.session){
-        this.setState({session: false})
-      }
-    }
+    // const respo = await verifySession(cookies.cookies);
+    // if(respo.approved){
+    //   if(!this.state.session){
+    //     this.setState({session: true})
+    //   }
+    //   //cookies.set('authToken','',{path:'/'})
+    //   if(respo.data.name){
+    //     this.setState({name:respo.data.name})
+    //   }
+    //   if(respo.data.authorization){
+    //     this.setState({auth:respo.data.authorization})
+    //   }
+    // }else{
+    //   if(this.state.session){
+    //     this.setState({session: false})
+    //   }
+    // }
   }
 
 
@@ -108,8 +113,8 @@ if(this.state.isLoading){
     <div className="container" id="home">
       {this.redirect()}
      
-      <SideMenu update={this.updateArea} username={this.state.name} options ={this.options[this.state.auth]} logout={this.logoutFunc}></SideMenu>
-
+      <SideMenu update={this.updateArea} username={this.state.name} options ={this.options[this.state.auth]}></SideMenu>
+      {/* logout={this.logoutFunc} */}
       <div className='content'>
           <Dashboard area={this.state.area} auth = {this.state.auth} username ={this.state.name} loading={this.loading}/>
       </div>
@@ -123,7 +128,7 @@ if(this.state.isLoading){
 
 
 
-export default withCookies(Home);
+export default withAuthenticator(withCookies(Home));
   
 /*
 Home.getInitialProps = async (ctx)=>{

@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-            <Route path="/signup">
+            {/* <Route path="/signup">
               <CookiesProvider>
                <SignUp />  
               </CookiesProvider>
@@ -21,7 +21,7 @@ ReactDOM.render(
               <CookiesProvider>
                 <Login />
               </CookiesProvider>
-            </Route>
+            </Route> */}
             <Route path="/call/:id">
               <CookiesProvider>
                 <Call oi="oi"/>

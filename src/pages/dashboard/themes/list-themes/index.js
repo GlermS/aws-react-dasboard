@@ -3,6 +3,8 @@ import axios from 'axios'
 import ThemeCard from './theme-card'
 import {withCookies} from 'react-cookie'
 import './styles.css'
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+
 import {Switch, Route} from 'react-router-dom'
 // import EditCall from '../edit-call'
 
@@ -36,6 +38,7 @@ class ListThemes extends React.Component{
         }).catch(error =>{
           return {msg:error, status:401}
         })
+        console.log(resp)
         if(resp.data){
             this.setState({themesList:resp.data})
         }
@@ -80,4 +83,4 @@ class ListThemes extends React.Component{
     }
 }
 
-export default withCookies(ListThemes);
+export default withAuthenticator(withCookies(ListThemes));

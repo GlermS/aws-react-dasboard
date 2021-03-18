@@ -3,8 +3,9 @@ import LoginForm from './login-form.js'
 import Footer from '../../components/footer';
 import LoadingScreen from '../../components/loadingScreen'
 
-import React from 'react'
 
+
+import React from 'react'
 
 class Login extends React.Component{
   constructor(props){

@@ -2,6 +2,7 @@ import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import Profile from '../../assets/profile.png'
 import './style.css'
+import {AmplifySignOut } from '@aws-amplify/ui-react';
 
 class SideMenu extends React.Component {
     constructor(props){
@@ -30,7 +31,8 @@ class SideMenu extends React.Component {
                         return <Link className={this.selection(value.path)} to={value.path} onClick={()=>{this.setState({path:value.path})}}>{value.text}</Link>
                     })}
                 </div>
-                <button className="logout" onClick={this.props.logout}>Logout</button>
+                <AmplifySignOut className="logout">
+                </AmplifySignOut>
             </div>
         );
     }

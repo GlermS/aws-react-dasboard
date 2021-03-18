@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-yubbefrontend-dev-145456-authRole",
+      "UnauthRoleArn": "arn:aws:iam::120741030969:role/amplify-yubbefrontend-dev-145456-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::120741030969:role/amplify-yubbefrontend-dev-145456-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-yubbefrontend-dev-145456-deployment",
+      "UnauthRoleName": "amplify-yubbefrontend-dev-145456-unauthRole",
+      "StackName": "amplify-yubbefrontend-dev-145456",
+      "StackId": "arn:aws:cloudformation:us-east-2:120741030969:stack/amplify-yubbefrontend-dev-145456/1097c4b0-8813-11eb-abe0-0634d5bc354c",
+      "AmplifyAppId": "d3fm6vz8n8r12z"
+    },
+    "categories": {
+      "auth": {
+        "yubbefrontendc2e5eae3": {}
+      }
+    }
+  }
+}
