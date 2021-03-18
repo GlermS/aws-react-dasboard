@@ -17,9 +17,6 @@
     flex-wrap: wrap;
 }
 
-
-
-
 .card-content{
     position: relative;
     padding:10px;
@@ -67,4 +64,8 @@
 .call-theme{
     min-height: 1rem;
     max-width: calc(100% - 1rem);
+}
+
+h3.theme-title{
+    margin:0
 }

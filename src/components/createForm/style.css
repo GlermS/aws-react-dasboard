@@ -1,0 +1,17 @@
+.create{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.create-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.create-form label{
+    display: flex;
+    flex-direction: column;
+}

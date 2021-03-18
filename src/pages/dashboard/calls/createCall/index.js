@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import {withCookies} from 'react-cookie'
 import moment from 'moment'
+import CreateForm from '../../../../components/createForm'
 import './style.css'
 
 
@@ -14,17 +15,22 @@ class CreateCall extends React.Component{
         date: '',
         invalidData: false,
         theme:'',
-        themesList:[]
+        themesList:[],
+        link:'',
       }
     }
     loading = (isLoading)=>{
       if(this.props.loading){
+          // console.log('Loanding')
           this.props.loading(isLoading);
+      }else{
+        console.log('done')
       }
   }
     
     listThemes = async ()=>{
       const { cookies } = this.props;
+      console.log('tentando listar')
       this.loading(true)
 
       await axios({
@@ -35,11 +41,12 @@ class CreateCall extends React.Component{
         authToken: cookies.cookies.authToken
       }
       }).then((response) => {
+        console.log(response.data)
         this.setState({themesList: response.data})
       }).catch((error) => {
         alert('Mudança inválida')
       })
-
+      console.log('Alguém')
       this.loading(false)
     }
 
@@ -52,7 +59,7 @@ class CreateCall extends React.Component{
       await axios({
         url:process.env.REACT_APP_BACKEND_URI+'/api/adm/calls',
         method: 'post',
-        data: {date:moment(this.state.date).utcOffset(-3, true).format(), theme:this.state.theme},
+        data: {date:moment(this.state.date).utcOffset(-3, true).format(), theme:this.state.theme, link:this.state.link},
         headers: {
         "Access-Control-Allow-Origin": "*",
         authToken: cookies.cookies.authToken
@@ -88,30 +95,13 @@ class CreateCall extends React.Component{
     }
 
     render(){
+      let themes = this.state.themesList
       return(
-        <div className="create-call">
-          <form className ="create-call-form" >
-            <label>
-            <span>Data:</span>
-            <input type = 'datetime-local' name = "date" value = {this.state.date} onChange ={(e)=>{this.setState({date:e.target.value, invalidData:false, created: false})}}></input>
-            </label>
-            <label>
-            <span>Tema:</span>
-            <select value={this.state.theme} onChange={(e)=>{this.setState({theme: e.target.value})}}>
-              <option value=''>- - Unknown - -</option>
-              {this.state.themesList.map((val,index)=>{
-                return <option value={val._id}>{val.title}</option>
-              })}
-            </select>            
-            </label>
-            <div>
-            <button type="submit" onClick={this.submitForm}>Enviar</button>
-            </div>
-            {this.invalidMessage()}
-            {this.createdMessage()}
-          </form>
-        </div>
+          <CreateForm loading={this.loading} path='/api/adm/calls' area='call' 
+          campos={{date:{label:'Data', type:'date', value:''}, 
+          theme:{label:'Tema', type:'select', values:themes
         
+        }}} />        
         );
 
     }

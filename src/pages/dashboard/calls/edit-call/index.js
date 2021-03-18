@@ -77,7 +77,8 @@ class EditCall extends React.Component{
         theme:data.theme,
         moderator:data.moderator,
         clients:data.clients,
-        date:data.date
+        date:data.date,
+        link:data.link
       })
     }).catch((error) => {
       alert('Mudança inválida')
@@ -228,6 +229,11 @@ class EditCall extends React.Component{
               <label>
                 <span>Data</span>
                 <input type="datetime-local" value={date.format('yyyy-MM-DDThh:mm')} className = "call-date"  onChange={(e)=>{this.setState({date:e.target.value})}}/>
+              </label>
+
+              <label>
+                <span>Link</span>
+                <input type="text" value={this.state.link} className = "call-link"  onChange={(e)=>{this.setState({link:e.target.value})}}/>
               </label>
 
               <p>Clientes</p>

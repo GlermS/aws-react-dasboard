@@ -6,6 +6,8 @@ import MyCalls from './calls/my-calls';
 import Users from './users';
 import CreateCall from './calls/createCall';
 import RegisterUser from './users/register-user';
+import CreateForm from '../../components/createForm';
+import ListThemes from './themes/list-themes';
 
 
 class Dashboard extends React.Component{
@@ -45,13 +47,25 @@ class Dashboard extends React.Component{
                 </Route>
 
                 <Route path="/register-user">
-                 <RegisterUser loading={this.loading}/>                
+                    <RegisterUser loading={this.loading}/>                
                 </Route>
 
                 <Route path="/users-list">
                     <Users loading={this.loading}></Users>
                 </Route>
                 
+                <Route path="/create-theme">
+                <CookiesProvider>
+                    <CreateForm loading={this.loading} path='/theme' area='theme' campos={{title:{label:'Título', type:'input', value:''}, description:{label:'Descrição', type:'input', value:''}}} />
+                </CookiesProvider>
+                </Route>
+
+                <Route path="/list-themes">
+                <CookiesProvider>
+                    <ListThemes loading={this.loading}/>
+                </CookiesProvider>
+                </Route>
+
          </Switch>)
     }
 }

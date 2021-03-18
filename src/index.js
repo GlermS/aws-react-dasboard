@@ -6,6 +6,7 @@ import SignUp from './pages/signup'
 import Login from './pages/login'
 import { CookiesProvider } from 'react-cookie';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Call from './pages/call';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,11 +22,17 @@ ReactDOM.render(
                 <Login />
               </CookiesProvider>
             </Route>
+            <Route path="/call/:id">
+              <CookiesProvider>
+                <Call oi="oi"/>
+              </CookiesProvider>
+            </Route>
             <Route path="/">
               <CookiesProvider>
                 <Home />
               </CookiesProvider>
             </Route>
+            
             
       </Switch>
     </Router>

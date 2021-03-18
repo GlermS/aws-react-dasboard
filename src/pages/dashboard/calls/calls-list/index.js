@@ -30,7 +30,7 @@ class CallsList extends React.Component{
           method: 'get',
           headers: {"Access-Control-Allow-Origin": "*", "authToken":cookies.authToken}
           }).then((response) => {
-              console.log(response)
+            //   console.log(response)
             return {data: response.data, status: response.status}
       
         }).catch(error =>{
@@ -120,11 +120,8 @@ class CallsList extends React.Component{
                             {this.availableCallsRender(this.state.callsList)}
                         </div>
                     </div>
-                   
                 </Route>
-
             </Switch>
-            
         </div>
         );
     }

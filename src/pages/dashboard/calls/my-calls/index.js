@@ -1,5 +1,6 @@
 import React from 'react'
 import {withCookies} from 'react-cookie'
+import Card from '../../../../components/card'
 import './styles.css'
 import moment from 'moment';
 import axios from 'axios';
@@ -45,7 +46,10 @@ class MyCalls extends React.Component{
     componentDidMount= async() =>{
         await this.listUserCalls()
     }
-
+    participate = (link)=>{
+        if (link!=''){
+            return<a href={link}  target="_blank" rel="noopener noreferrer">Entrar na sala</a>
+    }}
     myCallsRender = (calls)=>{
         var callsComp = []
         if(calls.client){
@@ -58,19 +62,24 @@ class MyCalls extends React.Component{
                         title = call.theme[0].title
                     }
                 }
+                var link = ''
+                if(call.link){
+                    link = call.link
+                }
 
                 callsComp.push(
-                    <div key={i} className = "call-card">
+
+                    <Card key={i}>
                         <div className = "card-content">
                         <div className = "card-description">
                             <p className = "call-theme">{title}</p>
                             {moderator}
                             <p className = "call-occupation"><b>Ocupação:</b><span className="card-content-text">{call.clients.length}</span></p>
-                            <p className = "call-date"><b>Data:</b><span className="card-content-text">{date.format('DD/MM/YYYY')} às {date.format('hh:mm')}h</span></p>
+                            <p className = "call-date"><b>Data:</b><span className="card-content-text">{date.format('DD/MM/YYYY')} às {date.format('HH:mm')}h</span></p>
+                            {this.participate(link)}
                         </div>
-                        
                         </div>
-                    </div>
+                    </Card>
                 )
             })
         }
@@ -84,16 +93,21 @@ class MyCalls extends React.Component{
                         title = call.theme[0].title
                     }
                 }
+                var link = ''
+                if(call.link){
+                    link = call.link
+                }
                 callsComp.push(
-                    <div key={"M"+i} className = "call-card mycall-moderator">
+                    <Card key={"M"+i} moderator={true} >
                         <div className = "card-content">
                         <div className = "card-description">
                             <p className = "call-theme">{title}</p>
                             <p className = "call-occupation"><b>Ocupação:</b><span className="card-content-text">{call.clients.length}</span></p>
-                            <p className = "call-date"><b>Data:</b><span className="card-content-text">{date.format('DD/MM/YYYY')} às {date.format('hh:mm')}h</span></p>
-                        </div>
+                            <p className = "call-date"><b>Data:</b><span className="card-content-text">{date.format('DD/MM/YYYY')} às {date.format('HH:mm')}h</span></p>
+                            {this.participate(link)}
+                         </div>
                        </div> 
-                    </div>
+                    </Card>
                 )
             })
         }

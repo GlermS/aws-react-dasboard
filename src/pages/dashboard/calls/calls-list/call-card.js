@@ -1,6 +1,7 @@
 import React from 'react'
 import EditionIcon from '../../../../assets/icons/pencil.svg'
 import moment from 'moment'
+import Card from '../../../../components/card'
 import './styles.css'
 import {Link} from 'react-router-dom'
 
@@ -44,7 +45,7 @@ class CallCard extends React.Component{
         }
         
         return(
-            <div key={this.props.keys} className = "call-card">
+            <Card key={this.props.keys} >
                 <div className = "card-content">
                 <Link className="edit-button" to={"/available-calls/"+this.props.call._id}><img src={EditionIcon} style={this.admDisplay()} alt="edit"></img></Link>
                 <div className="card-description">
@@ -58,7 +59,7 @@ class CallCard extends React.Component{
                     <button className= "join-call" id={this.props.call._id} onClick= {this.props.join}>Join call</button>
                 </div>
                 </div>
-            </div>
+            </Card>
         )
     }
 }
