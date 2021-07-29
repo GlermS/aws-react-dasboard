@@ -12,16 +12,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-            {/* <Route path="/signup">
-              <CookiesProvider>
-               <SignUp />  
-              </CookiesProvider>
-            </Route>
-            <Route path="/login">
-              <CookiesProvider>
-                <Login />
-              </CookiesProvider>
-            </Route> */}
             <Route path="/call/:id">
               <CookiesProvider>
                 <Call oi="oi"/>

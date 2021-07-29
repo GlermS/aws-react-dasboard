@@ -1,19 +1,24 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-yubbefrontend-dev-145456-authRole",
-      "UnauthRoleArn": "arn:aws:iam::120741030969:role/amplify-yubbefrontend-dev-145456-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::120741030969:role/amplify-yubbefrontend-dev-145456-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-yubbefrontend-dev-145456-deployment",
-      "UnauthRoleName": "amplify-yubbefrontend-dev-145456-unauthRole",
-      "StackName": "amplify-yubbefrontend-dev-145456",
-      "StackId": "arn:aws:cloudformation:us-east-2:120741030969:stack/amplify-yubbefrontend-dev-145456/1097c4b0-8813-11eb-abe0-0634d5bc354c",
-      "AmplifyAppId": "d3fm6vz8n8r12z"
+      "AuthRoleName": "amplify-awsreactdashboard-dev-164009-authRole",
+      "UnauthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-awsreactdashboard-dev-164009-deployment",
+      "UnauthRoleName": "amplify-awsreactdashboard-dev-164009-unauthRole",
+      "StackName": "amplify-awsreactdashboard-dev-164009",
+      "StackId": "arn:aws:cloudformation:us-east-1:120741030969:stack/amplify-awsreactdashboard-dev-164009/cbd2e170-f0a4-11eb-91ca-12d8863982b5",
+      "AmplifyAppId": "d1egtm4s111gs6"
     },
     "categories": {
       "auth": {
-        "yubbefrontendc2e5eae3": {}
+        "awsreactdashboard1df212a8": {
+          "userPoolId": "us-east-1_SC8K8S2CL",
+          "userPoolName": "service-user-pool-dev",
+          "webClientId": "54va6vggd7e4uheq75rt4c3fos",
+          "nativeClientId": "54va6vggd7e4uheq75rt4c3fos"
+        }
       }
     }
   }

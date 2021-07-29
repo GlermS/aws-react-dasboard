@@ -7,8 +7,7 @@ import Footer from '../components/footer';
 import {Redirect} from 'react-router-dom'
 import React from 'react'
 import SideMenu from '../components/sideMenu';
-import Amplify, { Auth } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 Amplify.configure(awsconfig);
 
@@ -17,11 +16,7 @@ class Home extends React.Component{
     super(props)
     // const { cookies } = props;
     var session = true
-    // if(cookies.get('authToken')){
-    //   if(cookies.get('authToken')!==''){
-    //     session=true
-    //   }
-    // }
+ 
 
     this.state = {
       session: session,
@@ -128,7 +123,7 @@ if(this.state.isLoading){
 
 
 
-export default withAuthenticator(withCookies(Home));
+export default withCookies(Home);
   
 /*
 Home.getInitialProps = async (ctx)=>{

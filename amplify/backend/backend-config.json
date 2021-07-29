@@ -1,7 +1,8 @@
 {
   "auth": {
-    "yubbefrontendc2e5eae3": {
+    "awsreactdashboard1df212a8": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
