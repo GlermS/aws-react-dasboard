@@ -21,7 +21,6 @@ init_env () {
     if [[ -z ${STACKINFO} ]];
     then
         echo "# Initializing new Amplify environment: ${ENV} (amplify init)"
-        "# Initializing new Amplify environment: ${CATEGORIES} (amplify init)"
         [[ -z ${CATEGORIES} ]] && amplify init --amplify ${AMPLIFY} --providers ${PROVIDERS} --codegen ${CODEGEN} --yes || amplify init --amplify ${AMPLIFY} --providers ${PROVIDERS} --codegen ${CODEGEN} --categories ${CATEGORIES} --yes
         echo "# Environment ${ENV} details:"
         amplify env get --name ${ENV}
