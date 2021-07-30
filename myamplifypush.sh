@@ -99,6 +99,7 @@ CODEGEN="{\
 }"
 CATEGORIES=""
 if [[ -z ${AMPLIFY_FACEBOOK_CLIENT_ID} && -z ${AMPLIFY_GOOGLE_CLIENT_ID} && -z ${AMPLIFY_AMAZON_CLIENT_ID} ]]; then
+    echo "# -->INSIDE"
     AUTHCONFIG="{\
    \"userPoolId\":\"${AMPLIFY_USERPOOL_ID}\",\
     \"webClientId\":\"${AMPLIFY_WEBCLIENT_ID}\",\
@@ -108,6 +109,7 @@ if [[ -z ${AMPLIFY_FACEBOOK_CLIENT_ID} && -z ${AMPLIFY_GOOGLE_CLIENT_ID} && -z $
     \"auth\":$AUTHCONFIG\
     }"
 else
+    echo "# -->OUTSIDE"
     AUTHCONFIG="{\
     \"facebookAppIdUserPool\":\"${AMPLIFY_FACEBOOK_CLIENT_ID}\",\
     \"facebookAppSecretUserPool\":\"${AMPLIFY_FACEBOOK_CLIENT_SECRET}\",\
