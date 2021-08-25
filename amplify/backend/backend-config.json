@@ -1,6 +1,6 @@
 {
   "auth": {
-    "awsreactdashboard1df212a8": {
+    "awsreactdashboardba5d565c": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",

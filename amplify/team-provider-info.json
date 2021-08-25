@@ -1,31 +1,31 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-awsreactdashboard-dev-164009-authRole",
-            "UnauthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-awsreactdashboard-dev-164009-deployment",
-            "UnauthRoleName": "amplify-awsreactdashboard-dev-164009-unauthRole",
-            "StackName": "amplify-awsreactdashboard-dev-164009",
-            "StackId": "arn:aws:cloudformation:us-east-1:120741030969:stack/amplify-awsreactdashboard-dev-164009/cbd2e170-f0a4-11eb-91ca-12d8863982b5",
-            "AmplifyAppId": "d1egtm4s111gs6"
-        },
-        "categories": {
-            "auth": {
-                "awsreactdashboard1df212a8": {
-                    "userPoolId": "us-east-1_SC8K8S2CL",
-                    "userPoolName": "service-user-pool-dev",
-                    "webClientId": "54va6vggd7e4uheq75rt4c3fos",
-                    "nativeClientId": "54va6vggd7e4uheq75rt4c3fos"
-                }
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d1egtm4s111gs6",
-                    "type": "cicd"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-awsreactdashboard-dev-164009-authRole",
+      "UnauthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::120741030969:role/amplify-awsreactdashboard-dev-164009-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-awsreactdashboard-dev-164009-deployment",
+      "UnauthRoleName": "amplify-awsreactdashboard-dev-164009-unauthRole",
+      "StackName": "amplify-awsreactdashboard-dev-164009",
+      "StackId": "arn:aws:cloudformation:us-east-1:120741030969:stack/amplify-awsreactdashboard-dev-164009/cbd2e170-f0a4-11eb-91ca-12d8863982b5",
+      "AmplifyAppId": "d1egtm4s111gs6"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1egtm4s111gs6",
+          "type": "cicd"
         }
+      },
+      "auth": {
+        "awsreactdashboardba5d565c": {
+          "userPoolId": "us-east-1_SC8K8S2CL",
+          "userPoolName": "service-user-pool-dev",
+          "webClientId": "54va6vggd7e4uheq75rt4c3fos",
+          "nativeClientId": "54va6vggd7e4uheq75rt4c3fos"
+        }
+      }
     }
+  }
 }

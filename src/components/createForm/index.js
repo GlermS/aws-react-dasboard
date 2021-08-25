@@ -27,7 +27,7 @@ class CreateForm extends React.Component{
       var data={}
       Object.keys(this.state.fields).map((k)=>{data[k]=this.state.fields[k].value})
       await axios({
-        url:process.env.REACT_APP_BACKEND_URI+'/api/adm'+this.props.path,
+        url:process.env.REACT_APP_BACKEND_URI+this.props.path,
         method: 'post',
         data,
         headers: {

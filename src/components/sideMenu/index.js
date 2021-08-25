@@ -28,7 +28,7 @@ class SideMenu extends React.Component {
                 </div>
                 <div className="sidemenu-options">
                     {this.props.options.map((value,i)=>{
-                        return <Link className={this.selection(value.path)} to={value.path} onClick={()=>{this.setState({path:value.path})}}>{value.text}</Link>
+                        return <Link className={this.selection(value.path)} to={value.path} onClick={()=>{this.setState({path:value.path})}} key={i}>{value.text}</Link>
                     })}
                 </div>
                 <AmplifySignOut className="logout">

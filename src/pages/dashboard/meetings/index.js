@@ -4,34 +4,33 @@ import {Auth}  from 'aws-amplify';
 import Card from '../../../components/card';
 import {Link} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
-import { deleteUser, listUsers, joinUser } from '../../../utils/users';
+import { deleteMeeting, listMeetings, joinMeeting } from '../../../utils/meetings';
 import moment from 'moment';
 import './style.css';
 import LoadingContext from '../../context';
 
 
-function Users(props){
-const [users, setUsers] = useState([])
+function Meetings(props){
+const [meetings, setMeetings] = useState([])
 const [update, setUpdate] = useState(true)
 const [session, setSession] = useState({authToken:'', userId:''})
 const {isLoading, setIsLoading} = useContext(LoadingContext)
 
 const updateFunc = async()=>{
     await getToken()
-    const response = await listUsers(session)
+    const response = await listMeetings(session)
     if(response.status===200){
         const mts = response.data.map(element => {
-            console.log(element)
-            const {id, email, start, firstName:fname} = element
+            const {id, subscribed_users, start, tag} = element
             return {
-                userId: id,
-                fname,
-                email,
+                meetingId: id,
+                users: subscribed_users,
                 start,
+                tag
             }
         });
-        if(users!==mts){
-            setUsers(mts)
+        if(meetings!==mts){
+            setMeetings(mts)
         }
         
     }
@@ -62,21 +61,22 @@ return(
     <div className="my-calls scroll section">
     <div className="subheader">
         <h2 >Available Calls</h2>
-        <Link className='create-button' to='/users/create-user'>New user</Link>
+        <Link className='create-button' to='/meetings/create-meeting'>New meeting</Link>
     </div>
     <div className="my-calls-content">
         <div className = "calls-list">
             {
-                users.map((user, i) =>{
-                    let userId = user.userId
-                    let startTime = moment(user.start)
-                    console.log(user)
+                meetings.map((meeting, i) =>{
+                    let meetingId = meeting.meetingId
+                    let startTime = moment(meeting.start)
+                    console.log(meeting)
                     return (
-                        <Card name = {user.fname} cardId = {userId} type='user' updatePath='/users/update-user' fields={[
-                            {label: 'email', value: user.email},
-                            {label: 'Start', value: startTime.format("DD/MM/YYYY")},
+                        <Card tag = {meeting.tag} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
+                            {label: 'Incriptions', value: meeting.users? meeting.users.length:0},
+                            {label: 'Date', value: startTime.format("DD/MM/YYYY")},
+                            {label: 'Start', value: startTime.format("h:mm")},
                         ]
-                        } key ={i} deleteFunc={async()=>{await deleteUser(session, {userId}); updateFunc()}} joinFunc={async ()=>{await joinUser(session, {userId}); updateFunc()}}></Card>
+                        } key ={i} deleteFunc={async()=>{await deleteMeeting(session, {meetingId}); updateFunc()}} joinFunc={async ()=>{await joinMeeting(session, {meetingId}); updateFunc()}}></Card>
                     )
                 })
             }
@@ -87,6 +87,6 @@ return(
 )
 }
 
-export default withRouter(Users)
+export default withRouter(Meetings)
 
   

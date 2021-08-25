@@ -1,18 +1,105 @@
-import React from 'react'
+import {Link} from 'react-router-dom'
+import { deleteMeeting } from '../../utils/meetings'
 import './style.css'
 
-class Card extends React.Component{
-    render() {
-        let cl = 'card'
-        if(this.props.moderator){
-            cl += ' moderator'
+function Card(props){
+    const updateButton = ()=>{
+        if (props.updatePath){
+            return <Link to={{
+                pathname: props.updatePath,
+                search: "?id="+props.cardId
+            }}>update</Link>
         }
-        return(
-            <div key={this.props.keys} className = {cl}>
-                {this.props.children}
-            </div>
-        )
     }
+    const deleteButton = ()=>{
+        if (props.deleteFunc){
+            return <button onClick={(e)=>{
+                e.preventDefault();
+                props.deleteFunc();
+            }}>delete</button>
+        }
+    }
+    const joinButton = ()=>{
+        if (props.joinFunc){
+            return <button onClick={(e)=>{
+                e.preventDefault();
+                props.joinFunc();
+            }}>Join</button>
+        }
+    }
+
+    switch (props.type) {
+        case 'user':
+            return(
+                <div className = 'card' >
+                    <div className='card-header'>
+                        <h3>{props.name}</h3>
+                    </div>
+                    <div className='card-body'>
+                    {props.fields.map((val, i )=>{
+                        // console.log(val, i)
+                        return renderField(val, i)
+                    })}
+                    </div>
+                    <div className='card-footer'>
+                        {updateButton()}
+                        {deleteButton()}
+                    </div>
+                </div>
+            )
+          break;
+
+        case 'meeting':
+            return(
+                <div className = 'card' >
+                    <div className='card-header'>
+                        <h3>{props.tag}</h3>
+                    </div>
+                    <div className='card-body'>
+                    {props.fields.map((val, i )=>{
+                        // console.log(val, i)
+                        return renderField(val, i)
+                    })}
+                    </div>
+                    <div className='card-footer'>
+                        {joinButton()}
+                        {updateButton()}
+                        {deleteButton()}
+                    </div>
+                </div>
+            )
+          break;
+        default:
+            return(
+                <div className = 'card' >
+                    <div className='card-header'>
+                        <h3>{props.tag}</h3>
+                    </div>
+                    <div className='card-body'>
+                    {props.fields.map((val, i )=>{
+                        // console.log(val, i)
+                        return renderField(val, i)
+                    })}
+                    </div>
+                    <div className='card-footer'>
+                        {joinButton()}
+                        {updateButton()}
+                        {deleteButton()}
+                    </div>
+                </div>
+            )
+      }
+      
+   
 }
 
 export default Card
+
+const renderField = (field, key) =>{
+    return(
+        <div className = 'field' key ={key}>
+            <b className = 'label'>{field.label}</b>
+            <span className = 'value'>{field.value}</span>
+        </div>
+    )
+}

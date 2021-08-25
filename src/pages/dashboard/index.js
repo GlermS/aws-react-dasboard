@@ -1,73 +1,93 @@
-import React from 'react'
+// import React from 'react'
 import { withCookies, CookiesProvider} from 'react-cookie';
-import CallsList from './calls/calls-list';
+// import CallsList from './calls/calls-list';
 import {Switch, Route,withRouter} from 'react-router-dom'
-import MyCalls from './calls/my-calls';
+import Meetings from './meetings';
 import Users from './users';
-import CreateCall from './calls/createCall';
-import RegisterUser from './users/register-user';
-import CreateForm from '../../components/createForm';
-import ListThemes from './themes/list-themes';
+// import Users from './users';
+// import CreateCall from './calls/createCall';
+// import RegisterUser from './users/register-user';
+// import CreateForm from '../../components/createForm';
+// import ListThemes from './themes/list-themes';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import CreateMeetingForm from './meetings/create-meetings';
+import {Auth}  from 'aws-amplify';
+import {useEffect, useState} from 'react';
+import UpdateMeetingForm from './meetings/update-meetings';
+import CreateUserForm from './users/create-users';
+import UpdateUserForm from './users/update-users';
 
 
-class Dashboard extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            update:0,
+function Dashboard(props){
+    const [session, setSession] = useState({authToken:'', userId:''});
+
+    async function getToken(){
+        let sessionInfo = await Auth.currentSession()
+            if(session.authToken !== sessionInfo.idToken.jwtToken){
+            console.log('Update token')
+            session.authToken = sessionInfo.idToken.jwtToken
+            setSession(session)
+            }
+            return session
         }
-    }
+    useEffect(()=>{
+        getToken()
+    },[session])
 
-    loading = (isLoading)=>{
-        if(this.props.loading){
-            this.props.loading(isLoading);
-        }
-    }
+    return (
+        <Switch>
+            
 
-        render() {
+            <Route path="/profile">
+            <CookiesProvider>
+            </CookiesProvider>
+            </Route>
+
+            <Route path="/meetings">
+                <Switch>
+                    <Route path="/meetings/create-meeting">
+                        <CreateMeetingForm session={session}></CreateMeetingForm>
+                    </Route>
+
+                    <Route path="/meetings/update-meeting">
+                        <UpdateMeetingForm session={session}></UpdateMeetingForm>
+                    </Route>
+
+                    <Route path="/meetings">
+                        <Meetings  getToken={async ()=> await getToken()}/>
+                    </Route>
+                </Switch>
+            </Route>
+
+            <Route path="/users">
+            <Switch>
+                    <Route path="/users/create-user">
+                        <CreateUserForm session={session}></CreateUserForm>
+                    </Route>
+
+                    <Route path="/users/update-user">
+                        <UpdateUserForm session={session}></UpdateUserForm>
+                    </Route>
+
+                    <Route path="/users">
+                        <Users  getToken={async ()=> await getToken()}/>
+                    </Route>
+                </Switch>
+            </Route>
+
+            <Route path="/tags">
+            </Route>
+            
+            <Route path="/topics">
+            </Route>
+
+            <Route path="/">
+            <CookiesProvider>
+                <Meetings getToken={async ()=> await getToken()} />
+            </CookiesProvider>
+            </Route>
+        </Switch>)
     
-        return (
-         <Switch>
-                <Route path="/mycalls">
-                <CookiesProvider>
-                    <MyCalls auth ={this.props.auth} update = {this.props.update} loading={this.loading} />
-                </CookiesProvider>
-                </Route>
-
-                <Route path="/available-calls">
-                <CookiesProvider>
-                    <CallsList auth ={this.props.auth} update={this.loading} loading={this.loading}/>
-                </CookiesProvider>
-                </Route>
-
-                <Route path="/create-call">
-                <CookiesProvider>
-                    <CreateCall loading={this.loading}/>
-                </CookiesProvider>
-                </Route>
-
-                <Route path="/register-user">
-                    <RegisterUser loading={this.loading}/>                
-                </Route>
-
-                <Route path="/users-list">
-                    <Users loading={this.loading}></Users>
-                </Route>
-                
-                <Route path="/create-theme">
-                <CookiesProvider>
-                    <CreateForm loading={this.loading} path='/theme' area='theme' campos={{title:{label:'Título', type:'input', value:''}, description:{label:'Descrição', type:'input', value:''}}} />
-                </CookiesProvider>
-                </Route>
-
-                <Route path="/list-themes">
-                <CookiesProvider>
-                    <ListThemes loading={this.loading}/>
-                </CookiesProvider>
-                </Route>
-
-         </Switch>)
-    }
 }
 
-export default withRouter(withCookies(Dashboard))
+export default withAuthenticator(withRouter(withCookies(Dashboard)))

@@ -1,12 +1,47 @@
 .card{
-    margin-bottom:0.5rem;
-    width:100%;
-    min-height:90px;
-    border-radius: 6px;;
+    margin: 0.2rem;
+    width:240px;
+    height:220px;
+    /* border-radius: 6px; */
     box-shadow:0.1rem 0.1rem 0.2rem 0.1rem rgba(0, 0, 0, 0.2)
+}
+.card-header{
+    background: orange;
+    /* border-radius: 6px  6px 0 0; */
+    /* padding: 0.7rem; */
+    height: 50px;
+    padding-left: 0.7rem;
+    color: white;
+    display: flex;
+    align-items: center;
+
+}
+
+.card-header h3{
+    margin: 0;
+}
+
+.card-body{
+    box-sizing: border-box;
+    height: 120px;
+    margin:0 ;
+    padding: 0.7rem;
+}
+
+.card-footer{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .moderator{
     box-sizing: border-box;
     border: 0.25rem solid var(--color-primary-dark);
+}
+
+.field{
+    display: flex;
+    justify-content: space-between;
 }
