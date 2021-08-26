@@ -29,26 +29,6 @@ function Card(props){
     }
 
     switch (props.type) {
-        case 'user':
-            return(
-                <div className = 'card' >
-                    <div className='card-header'>
-                        <h3>{props.name}</h3>
-                    </div>
-                    <div className='card-body'>
-                    {props.fields.map((val, i )=>{
-                        // console.log(val, i)
-                        return renderField(val, i)
-                    })}
-                    </div>
-                    <div className='card-footer'>
-                        {updateButton()}
-                        {deleteButton()}
-                    </div>
-                </div>
-            )
-          break;
-
         case 'meeting':
             return(
                 <div className = 'card' >
@@ -73,7 +53,7 @@ function Card(props){
             return(
                 <div className = 'card' >
                     <div className='card-header'>
-                        <h3>{props.tag}</h3>
+                        <h3>{props.name}</h3>
                     </div>
                     <div className='card-body'>
                     {props.fields.map((val, i )=>{
@@ -82,7 +62,6 @@ function Card(props){
                     })}
                     </div>
                     <div className='card-footer'>
-                        {joinButton()}
                         {updateButton()}
                         {deleteButton()}
                     </div>

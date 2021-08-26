@@ -4,6 +4,7 @@ import { withCookies, CookiesProvider} from 'react-cookie';
 import {Switch, Route,withRouter} from 'react-router-dom'
 import Meetings from './meetings';
 import Users from './users';
+import Topics from './topics';
 // import Users from './users';
 // import CreateCall from './calls/createCall';
 // import RegisterUser from './users/register-user';
@@ -16,6 +17,9 @@ import {useEffect, useState} from 'react';
 import UpdateMeetingForm from './meetings/update-meetings';
 import CreateUserForm from './users/create-users';
 import UpdateUserForm from './users/update-users';
+import CreateTopicForm from './topics/create-topic';
+import UpdateTopicForm from './topics/update-topic';
+
 
 
 function Dashboard(props){
@@ -60,7 +64,7 @@ function Dashboard(props){
             </Route>
 
             <Route path="/users">
-            <Switch>
+                <Switch>
                     <Route path="/users/create-user">
                         <CreateUserForm session={session}></CreateUserForm>
                     </Route>
@@ -75,12 +79,25 @@ function Dashboard(props){
                 </Switch>
             </Route>
 
+            <Route path="/topics">
+                <Switch>
+                    <Route path="/topics/create-topic">
+                        <CreateTopicForm session={session}></CreateTopicForm>
+                    </Route>
+
+                    <Route path="/topics/update-topic">
+                        <UpdateTopicForm session={session}></UpdateTopicForm>
+                    </Route>
+
+                    <Route path="/topics">
+                        <Topics  getToken={async ()=> await getToken()}/>
+                    </Route>
+                </Switch>
+            </Route>
+            
             <Route path="/tags">
             </Route>
             
-            <Route path="/topics">
-            </Route>
-
             <Route path="/">
             <CookiesProvider>
                 <Meetings getToken={async ()=> await getToken()} />
