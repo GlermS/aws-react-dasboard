@@ -5,6 +5,7 @@ import {Switch, Route,withRouter} from 'react-router-dom'
 import Meetings from './meetings';
 import Users from './users';
 import Topics from './topics';
+import Tags from './tags';
 // import Users from './users';
 // import CreateCall from './calls/createCall';
 // import RegisterUser from './users/register-user';
@@ -19,6 +20,8 @@ import CreateUserForm from './users/create-users';
 import UpdateUserForm from './users/update-users';
 import CreateTopicForm from './topics/create-topic';
 import UpdateTopicForm from './topics/update-topic';
+import CreateTagForm from './tags/create-tag';
+import UpdateTagForm from './tags/update-tag';
 
 
 
@@ -96,6 +99,19 @@ function Dashboard(props){
             </Route>
             
             <Route path="/tags">
+                <Switch>
+                    <Route path="/tags/create-tag">
+                        <CreateTagForm session={session}></CreateTagForm>
+                    </Route>
+
+                    <Route path="/tags/update-tag">
+                        <UpdateTagForm session={session}></UpdateTagForm>
+                    </Route>
+
+                    <Route path="/tags">
+                        <Tags  getToken={async ()=> await getToken()}/>
+                    </Route>
+                </Switch>
             </Route>
             
             <Route path="/">

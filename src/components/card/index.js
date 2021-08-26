@@ -75,10 +75,18 @@ function Card(props){
 export default Card
 
 const renderField = (field, key) =>{
+    const output = ()=>{
+        switch(field.type){
+            case "color":
+                return <div style={{background:field.value, height:"1rem", width:"1rem"}}></div>
+            default:
+                return <span className = 'value'>{field.value}</span>
+        }
+    }
     return(
         <div className = 'field' key ={key}>
             <b className = 'label'>{field.label}</b>
-            <span className = 'value'>{field.value}</span>
+            {output()}
         </div>
     )
 }
