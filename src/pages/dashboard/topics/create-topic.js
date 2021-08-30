@@ -6,7 +6,8 @@ import LoadingContext from '../../context'
 
 function CreateTopicForm(props){
     const [tag, setTag] = useState('presentation')
-    const [start, setStart] = useState(moment().format('YYYY-MM-DDTh:mm:ss'))
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const [tagsList, setTagsList] = useState([])
     const {setIsLoading} = useContext(LoadingContext)
     useEffect(()=>{
@@ -29,16 +30,21 @@ function CreateTopicForm(props){
             <h1>Create a new call</h1>
             <form className ="create-form" >
                 <label>
+                    <span>Name</span>
+                    <input type='text' value={name} onChange={(e)=>{setName(e.target.value)}}></input>
+                </label>
+                <label>
+                    <span>Description</span>
+                    <input type='text' value={description} onChange={(e)=>{setDescription(e.target.value)}}></input>
+                </label>
+                <label>
                     <span>Tag:</span>
                     <select name="tag" id="tags" onChange={(e)=>{setTag(e.target.value)}} value={tag}>
                         {opionsList()}
                     </select>
                 </label>
-                <label>
-                    <span>Start</span>
-                    <input type='datetime-local' value={start} onChange={(e)=>{setStart(e.target.value)}}></input>
-                </label>
-                <button type="submit" onClick={(e)=>{e.preventDefault();postTopic(props.session, {tag, start})}}>Enviar</button>
+                
+                <button type="submit" onClick={(e)=>{e.preventDefault();postTopic(props.session, {tagId:tag, topicName:name, topicDescription:description})}}>Enviar</button>
             </form>
         </div>);
 }
