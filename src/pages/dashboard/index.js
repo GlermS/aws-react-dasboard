@@ -3,6 +3,7 @@ import { withCookies, CookiesProvider} from 'react-cookie';
 // import CallsList from './calls/calls-list';
 import {Switch, Route,withRouter} from 'react-router-dom'
 import Meetings from './meetings';
+import MyMeetings from './principal';
 import Users from './users';
 import Topics from './topics';
 import Tags from './tags';
@@ -116,7 +117,7 @@ function Dashboard(props){
             
             <Route path="/">
             <CookiesProvider>
-                <Meetings getToken={async ()=> await getToken()} />
+                <MyMeetings getToken={async ()=> await getToken()} />
             </CookiesProvider>
             </Route>
         </Switch>)

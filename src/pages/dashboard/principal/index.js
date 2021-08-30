@@ -4,13 +4,13 @@ import {Auth}  from 'aws-amplify';
 import Card from '../../../components/card';
 import {Link} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
-import { deleteMeeting, listMeetings, joinMeeting } from '../../../utils/meetings';
+import { deleteMeeting, listMyMeetings, joinMeeting } from '../../../utils/meetings';
 import moment from 'moment';
 import './style.css';
 import LoadingContext from '../../context';
 
 
-function Meetings(props){
+function MyMeetings(props){
 const [meetings, setMeetings] = useState([])
 const [update, setUpdate] = useState(true)
 const [session, setSession] = useState({authToken:'', userId:''})
@@ -18,7 +18,7 @@ const {isLoading, setIsLoading} = useContext(LoadingContext)
 
 const updateFunc = async()=>{
     await getToken()
-    const response = await listMeetings(session)
+    const response = await listMyMeetings(session)
     if(response.status===200){
         const mts = response.data.map(element => {
             const {id, subscribed_users, start, tag} = element
@@ -61,7 +61,7 @@ return(
     <div className="my-calls scroll section">
     <div className="subheader">
         <h2 >Available Calls</h2>
-        <Link className='create-button' to='/meetings/create-meeting'>New meeting</Link>
+        {/* <Link className='create-button' to='/meetings/create-meeting'>New meeting</Link> */}
     </div>
     <div className="my-calls-content">
         <div className = "calls-list">
@@ -71,10 +71,10 @@ return(
                     let startTime = moment(meeting.start)
                     console.log(meeting)
                     return (
-                        <Card type='meeting' tag = {meeting.tag} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
+                        <Card type='my-meeting' tag = {meeting.tag} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
                             {label: 'Incriptions', value: meeting.users? meeting.users.length:0},
                             {label: 'Date', value: startTime.format("DD/MM/YYYY")},
-                            {label: 'Start', value: startTime.format("h:mm")},
+                            {label: 'Start', value: startTime.format("hh:mm")},
                         ]
                         } key ={i} deleteFunc={async()=>{await deleteMeeting(session, {meetingId}); updateFunc()}} joinFunc={async ()=>{await joinMeeting(session, {meetingId}); updateFunc()}}></Card>
                     )
@@ -87,6 +87,6 @@ return(
 )
 }
 
-export default withRouter(Meetings)
+export default withRouter(MyMeetings)
 
   

@@ -27,8 +27,32 @@ function Card(props){
             }}>Join</button>
         }
     }
+    const startButton = ()=>{
+        if (props.joinFunc){
+            return <a className="start-button" href={'https://meeting.yubbe.club/'+props.cardId}>Join</a>
+        }
+    }
+
 
     switch (props.type) {
+        case 'my-meeting':
+            return(
+                <div className = 'card' >
+                    <div className='card-header'>
+                        <h3>{props.tag}</h3>
+                    </div>
+                    <div className='card-body'>
+                    {props.fields.map((val, i )=>{
+                        // console.log(val, i)
+                        return renderField(val, i)
+                    })}
+                    </div>
+                    <div className='card-footer'>
+                        {startButton()}
+                    </div>
+                </div>
+            )
+          break;
         case 'meeting':
             return(
                 <div className = 'card' >

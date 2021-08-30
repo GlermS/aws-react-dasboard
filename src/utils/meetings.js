@@ -88,6 +88,22 @@ export async function updateMeeting(session, data){
     })
   }
 
+  export async function listMyMeetings(session){
+    return await axios({
+      url:process.env.REACT_APP_BACKEND_URI+'/meetings/my_meetings',
+      method: 'get',
+      crossDomain: true,
+      headers: {
+            'Authorization': session.authToken
+         }
+      }).then((response) => {
+        // console.log(response)
+        return {data: response.data, status: response.status}
+  
+    }).catch(error =>{
+      return {msg:error, status:401}
+    })
+  }
   export async function getMeeting(session, params){
     return await axios({
       url:process.env.REACT_APP_BACKEND_URI+'/meetings/meeting',
