@@ -103,7 +103,7 @@ return(
                     console.log(color)
                     return (
                         <Card type='meeting' tag={name} color={color} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
-                            {label: 'Incriptions', value: meeting.users? meeting.users.length:0},
+                            {label: 'Inscriptions', value: meeting.users? meeting.users.length:0},
                             {label: 'Date', value: startTime.format("DD/MM/YYYY")},
                             {label: 'Start', value: startTime.format("h:mm")},
                         ]
