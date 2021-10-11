@@ -37,8 +37,8 @@ function Card(props){
     switch (props.type) {
         case 'my-meeting':
             return(
-                <div className = 'card' >
-                    <div className='card-header'>
+                <div className = 'card'>
+                    <div className='card-header' style={{'backgroundColor':props.color}}>
                         <h3>{props.tag}</h3>
                     </div>
                     <div className='card-body'>
@@ -56,7 +56,7 @@ function Card(props){
         case 'meeting':
             return(
                 <div className = 'card' >
-                    <div className='card-header'>
+                    <div className='card-header' style={{'backgroundColor':props.color}}>
                         <h3>{props.tag}</h3>
                     </div>
                     <div className='card-body'>
@@ -76,7 +76,7 @@ function Card(props){
         default:
             return(
                 <div className = 'card' >
-                    <div className='card-header'>
+                    <div className='card-header' style={{'backgroundColor':props.color}}>
                         <h3>{props.name}</h3>
                     </div>
                     <div className='card-body'>
@@ -102,9 +102,9 @@ const renderField = (field, key) =>{
     const output = ()=>{
         switch(field.type){
             case "color":
-                return <div style={{background:field.value, height:"1rem", width:"1rem"}}></div>
+                return <div  className="field-value" ><div style={{background:field.value, height:"1rem", width:"1rem"}}></div></div>
             default:
-                return <span className = 'value'>{field.value}</span>
+                return <span className = 'field-value'>{field.value}</span>
         }
     }
     return(

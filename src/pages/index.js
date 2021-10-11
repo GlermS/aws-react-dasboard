@@ -15,6 +15,7 @@ function Home(props){
   const [name, setName] = useState('')
   const [role, setRole] = useState('admin')
   const [isLoading, setIsLoading] = useState(false)
+  const [ms, setMs] = useState(true)
 
   useEffect(()=>{
     getToken();    
@@ -53,7 +54,8 @@ function Home(props){
     <div className="container" id="home">
       {/* {this.redirect()} */}
      
-      <SideMenu username={name} options ={options[role]}></SideMenu>
+      <SideMenu username={name} options ={options[role]} mobileState = {ms}></SideMenu>
+      <div id="sidebar-button"><button onClick = {()=>{setMs(!ms)}}>menu</button></div>
       {/* logout={this.logoutFunc} */}
       <LoadingContext.Provider value={{isLoading, setIsLoading}} className='content'>
           <Dashboard auth = {role} username ={name} getToken={async ()=> await getToken()}/>

@@ -16,9 +16,10 @@ const [update, setUpdate] = useState(true)
 const [session, setSession] = useState({authToken:'', userId:''})
 const {isLoading, setIsLoading} = useContext(LoadingContext)
 
+
 const updateFunc = async()=>{
     await getToken()
-    const response = await listUsers(session)
+    var response = await listUsers(session)
     if(response.status===200){
         const mts = response.data.map(element => {
             console.log(element)
@@ -33,7 +34,6 @@ const updateFunc = async()=>{
         if(users!==mts){
             setUsers(mts)
         }
-        
     }
     
 }
@@ -73,7 +73,7 @@ return(
                     console.log(user)
                     return (
                         <Card name = {user.fname} cardId = {userId} type='user' updatePath='/users/update-user' fields={[
-                            {label: 'email', value: user.email},
+                            {label: 'Email', value: user.email},
                             {label: 'Start', value: startTime.format("DD/MM/YYYY")},
                         ]
                         } key ={i} deleteFunc={async()=>{await deleteUser(session, {userId}); updateFunc()}} joinFunc={async ()=>{await joinUser(session, {userId}); updateFunc()}}></Card>

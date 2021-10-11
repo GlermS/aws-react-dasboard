@@ -72,7 +72,7 @@ return(
                     let startTime = moment(tag.start)
                     console.log(tag)
                     return (
-                        <Card name = {tag.fname} cardId = {tagId} type='tag' updatePath='/tags/update-tag' fields={[
+                        <Card name = {tag.name} cardId = {tagId} type='tag' color={tag.color} updatePath='/tags/update-tag' fields={[
                             {label: 'Name', value: tag.name},
                             {label: 'Color', value: tag.color, type: "color"},
                         ]

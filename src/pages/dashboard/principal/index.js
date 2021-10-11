@@ -8,6 +8,8 @@ import { deleteMeeting, listMyMeetings, joinMeeting } from '../../../utils/meeti
 import moment from 'moment';
 import './style.css';
 import LoadingContext from '../../context';
+import { listTags } from '../../../utils/tags';
+
 
 
 function MyMeetings(props){
@@ -15,10 +17,11 @@ const [meetings, setMeetings] = useState([])
 const [update, setUpdate] = useState(true)
 const [session, setSession] = useState({authToken:'', userId:''})
 const {isLoading, setIsLoading} = useContext(LoadingContext)
+const [tags, setTags] = useState({})
 
 const updateFunc = async()=>{
     await getToken()
-    const response = await listMyMeetings(session)
+    var response = await listMyMeetings(session)
     if(response.status===200){
         const mts = response.data.map(element => {
             const {id, subscribed_users, start, tag} = element
@@ -34,7 +37,27 @@ const updateFunc = async()=>{
         }
         
     }
-    
+    response = await listTags(session)
+    console.log(response)
+    if(response.status===200){
+        const mts = response.data.map(element => {
+            console.log(element)
+            const {id, tag_color:color, tag_name:name} = element
+            return {
+                tagId: id,
+                color,
+                name
+            }
+        });
+        var d = {}
+        mts.forEach(element => {
+            d = {...d, [element.tagId]: element}
+        });
+
+        if(tags!==d){            
+            setTags(d)
+        }
+    }
 }
 
 
@@ -70,8 +93,16 @@ return(
                     let meetingId = meeting.meetingId
                     let startTime = moment(meeting.start)
                     console.log(meeting)
+                    const tag = tags[meeting.tag]
+                    let name = ''
+                    let color = ''
+                    if (tag) {
+                        name=tag.name 
+                        color=tag.color
+                    }
+                    console.log(color)
                     return (
-                        <Card type='my-meeting' tag = {meeting.tag} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
+                        <Card type='my-meeting'  tag={name} color={color} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
                             {label: 'Incriptions', value: meeting.users? meeting.users.length:0},
                             {label: 'Date', value: startTime.format("DD/MM/YYYY")},
                             {label: 'Start', value: startTime.format("hh:mm")},

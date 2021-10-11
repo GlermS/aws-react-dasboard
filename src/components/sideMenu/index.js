@@ -18,10 +18,17 @@ class SideMenu extends React.Component {
             return "sidemenu-option not-selected"
         }
     }
+    mobState = (st)=>{
+        if (!st){
+            return {display:'flex'}
+        }else{
+            return {display:'none'}
+        }
+    }
     render() {
         // console.log(this.state)
         return(
-            <div className="sidebar">
+            <div className="sidebar" style={this.mobState(this.props.mobileState)}>
                 <div className="sidemenu-header">
                     <img src={Profile} className="profile-image" alt="profile"/>
                     <span className="username">{this.props.username}</span>

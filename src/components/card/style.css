@@ -43,5 +43,15 @@
 
 .field{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+}
+.field *{
+    width: 100%;
+}
+
+.field-value{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.85rem;
 }

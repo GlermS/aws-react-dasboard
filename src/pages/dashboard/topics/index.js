@@ -8,6 +8,7 @@ import { deleteTopic, listTopics, joinTopic } from '../../../utils/topics';
 import moment from 'moment';
 import './style.css';
 import LoadingContext from '../../context';
+import { listTags } from '../../../utils/tags';
 
 
 function Topics(props){
@@ -15,10 +16,11 @@ const [topics, setTopics] = useState([])
 const [update, setUpdate] = useState(true)
 const [session, setSession] = useState({authToken:'', topicId:''})
 const {isLoading, setIsLoading} = useContext(LoadingContext)
+const [tags, setTags] = useState({})
 
 const updateFunc = async()=>{
     await getToken()
-    const response = await listTopics(session)
+    var response = await listTopics(session)
     if(response.status===200){
         const mts = response.data.map(element => {
             console.log(element)
@@ -33,6 +35,27 @@ const updateFunc = async()=>{
             setTopics(mts)
         }
         
+    }
+    response = await listTags(session)
+    console.log(response)
+    if(response.status===200){
+        const mts = response.data.map(element => {
+            console.log(element)
+            const {id, tag_color:color, tag_name:name} = element
+            return {
+                tagId: id,
+                color,
+                name
+            }
+        });
+        var d = {}
+        mts.forEach(element => {
+            d = {...d, [element.tagId]: element}
+        });
+
+        if(tags!==d){            
+            setTags(d)
+        }
     }
     
 }
@@ -70,8 +93,9 @@ return(
                     let topicId = topic.topicId
                     let startTime = moment(topic.start)
                     console.log(topic)
+                    console.log(tags)
                     return (
-                        <Card name = {topic.fname} cardId = {topicId} type='topic' updatePath='/topics/update-topic' fields={[
+                        <Card name = {topic.fname} color = {tags[topic.ta]} cardId = {topicId} type='topic' updatePath='/topics/update-topic' fields={[
                             {label: 'Name', value: topic.name},
                             {label: 'Description', value: topic.description},
                         ]

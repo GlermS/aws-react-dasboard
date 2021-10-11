@@ -45,13 +45,10 @@ function UpdateUserForm(props){
                     <input type='text' value={lname} onChange={(e)=>{setLname(e.target.value)}}></input>
                 </label>
                 <label>
-                    <span>Email</span>
+                    {/* <span>Email</span> */}
                     {/* <input type='text' value={email} onChange={(e)=>{setEmail(e.target.value)}}></input> */}
                 </label>
-                <label>
-                    <span>Start</span>
-                    {/* <input type='datetime-local' value={start} onChange={(e)=>{setStart(e.target.value)}}></input> */}
-                </label>
+
                 <button type="submit" onClick={(e)=>{e.preventDefault();updateUser(props.session, {userId, first_name:fname, last_name:lname})}}>Enviar</button>
             </form>
         </div>);
