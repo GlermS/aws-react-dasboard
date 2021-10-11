@@ -8,6 +8,7 @@ import Amplify, {Auth}  from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import LoadingScreen from '../components/loadingScreen';
 import LoadingContext from './context'
+import useWindowDimensions from '../utils/window'
 Amplify.configure(awsconfig);
 
 function Home(props){
@@ -16,7 +17,7 @@ function Home(props){
   const [role, setRole] = useState('admin')
   const [isLoading, setIsLoading] = useState(false)
   const [ms, setMs] = useState(true)
-
+  const {width,height} =useWindowDimensions()
   useEffect(()=>{
     getToken();    
   }, [session])
@@ -48,13 +49,19 @@ function Home(props){
   ],
   }
 
-  
+  const st = ()=>{
+    if(width>600){
+      return false
+    }else{
+      return ms
+    }
+  }
   return (
     
     <div className="container" id="home">
       {/* {this.redirect()} */}
      
-      <SideMenu username={name} options ={options[role]} mobileState = {ms}></SideMenu>
+      <SideMenu username={name} options ={options[role]} mobileState = {st()}></SideMenu>
       <div id="sidebar-button"><button onClick = {()=>{setMs(!ms)}}>menu</button></div>
       {/* logout={this.logoutFunc} */}
       <LoadingContext.Provider value={{isLoading, setIsLoading}} className='content'>
