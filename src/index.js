@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Home from './pages';
 import { CookiesProvider } from 'react-cookie';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 ReactDOM.render(
@@ -19,3 +20,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();

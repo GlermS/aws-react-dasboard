@@ -6,7 +6,7 @@ import LoadingContext from '../../context'
 
 function CreateMeetingForm(props){
     const [tag, setTag] = useState('presentation')
-    const [start, setStart] = useState(moment().format('YYYY-MM-DDTh:mm:ss'))
+    const [start, setStart] = useState(moment().format('YYYY-MM-DDTHH:mm:ss'))
     const [tagsList, setTagsList] = useState([])
     const {setIsLoading} = useContext(LoadingContext)
     useEffect(()=>{

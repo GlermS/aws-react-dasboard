@@ -105,7 +105,7 @@ return(
                         <Card type='meeting' tag={name} color={color} cardId = {meetingId} updatePath='/meetings/update-meeting' fields={[
                             {label: 'Inscriptions', value: meeting.users? meeting.users.length:0},
                             {label: 'Date', value: startTime.format("DD/MM/YYYY")},
-                            {label: 'Start', value: startTime.format("h:mm")},
+                            {label: 'Start', value: startTime.format("HH:mm")},
                         ]
                         } key ={i} deleteFunc={async()=>{await deleteMeeting(session, {meetingId}); updateFunc()}} joinFunc={async ()=>{await joinMeeting(session, {meetingId}); updateFunc()}}></Card>
                     )
